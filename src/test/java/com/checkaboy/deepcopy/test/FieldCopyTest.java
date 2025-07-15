@@ -1,6 +1,7 @@
 package com.checkaboy.deepcopy.test;
 
 import com.checkaboy.deepcopy.copyist.FieldCopyist;
+import com.checkaboy.deepcopy.copyist.interf.ICopyist;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,10 +37,7 @@ public class FieldCopyTest {
 
     @Test
     public void simpleFieldCopyTest() {
-        FieldCopyist<SimpleTestModel, String> stringFieldCopyist = new FieldCopyist<>(
-                SimpleTestModel::getStringValue,
-                SimpleTestModel::setStringValue
-        );
+        ICopyist<SimpleTestModel> stringFieldCopyist = FieldCopyist.simpleCopyist(SimpleTestModel::getStringValue, SimpleTestModel::setStringValue);
 
         String value = "String data";
         SimpleTestModel sourceSimpleTestModel = new SimpleTestModel().setStringValue(value);

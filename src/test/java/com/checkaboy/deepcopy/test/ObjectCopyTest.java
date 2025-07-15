@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.test;
 
+import com.checkaboy.deepcopy.cloner.Cloner;
 import com.checkaboy.deepcopy.copyist.FieldCopyist;
 import com.checkaboy.deepcopy.copyist.ObjectCopyist;
 import com.checkaboy.deepcopy.copyist.SubObjectCopyist;
@@ -21,16 +22,16 @@ public class ObjectCopyTest {
     public void carCopyTest() {
         IObjectCopyist<Car> carCopyist = new ObjectCopyist<>();
 
-        carCopyist.put("carBrand", new FieldCopyist<>(Car::getCarBrand, Car::setCarBrand));
-        carCopyist.put("model", new FieldCopyist<>(Car::getModel, Car::setModel));
-        carCopyist.put("color", new FieldCopyist<>(Car::getColor, Car::setColor));
-        carCopyist.put("doorCount", new FieldCopyist<>(Car::getDoorCount, Car::setDoorCount));
+        carCopyist.put("carBrand", FieldCopyist.simpleCopyist(Car::getCarBrand, Car::setCarBrand));
+        carCopyist.put("model", FieldCopyist.simpleCopyist(Car::getModel, Car::setModel));
+        carCopyist.put("color", FieldCopyist.simpleCopyist(Car::getColor, Car::setColor));
+        carCopyist.put("doorCount", FieldCopyist.simpleCopyist(Car::getDoorCount, Car::setDoorCount));
 
         {
             IObjectCopyist<Engine> engineCopyist = new ObjectCopyist<>();
-            engineCopyist.put("horsePower", new FieldCopyist<>(Engine::getHorsePower, Engine::setCountCylinder));
-            engineCopyist.put("volume", new FieldCopyist<>(Engine::getVolume, Engine::setVolume));
-            engineCopyist.put("countCylinder", new FieldCopyist<>(Engine::getCountCylinder, Engine::setCountCylinder));
+            engineCopyist.put("horsePower", FieldCopyist.simpleCopyist(Engine::getHorsePower, Engine::setCountCylinder));
+            engineCopyist.put("volume", FieldCopyist.simpleCopyist(Engine::getVolume, Engine::setVolume));
+            engineCopyist.put("countCylinder", FieldCopyist.simpleCopyist(Engine::getCountCylinder, Engine::setCountCylinder));
             SubObjectCopyist1<Car, Engine> subObjectCopyist = new SubObjectCopyist1<>(car -> {
                 Engine engine = car.getEngine();
                 if (engine == null) return new Engine();
@@ -40,11 +41,22 @@ public class ObjectCopyTest {
         }
 
         {
-            IObjectCopyist<Transmission> transmissionComparator = new ObjectCopyist<>();
-            transmissionComparator.put("countSteps", new FieldCopyist<>(Transmission::getCountSteps, Transmission::setCountSteps));
-            transmissionComparator.put("transmissionType", new FieldCopyist<>(Transmission::getTransmissionType, Transmission::setTransmissionType));
-            SubObjectCopyist<Car, Transmission> subObjectCopyist = new SubObjectCopyist<>(Car::getTransmission, Car::setTransmission, Transmission::new, transmissionComparator);
-            carCopyist.put("transmission", subObjectCopyist);
+            FieldCopyist<Car, Transmission> copyist = new FieldCopyist<>(
+                    Car::getTransmission,
+                    Car::setTransmission,
+                    new Cloner<>(source -> {
+                        Transmission transmission = new Transmission();
+
+                        IObjectCopyist<Transmission> objectCopyist = new ObjectCopyist<>();
+                        objectCopyist.put("countSteps", FieldCopyist.simpleCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
+                        objectCopyist.put("transmissionType", FieldCopyist.simpleCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
+                        objectCopyist.copy(source, transmission);
+
+                        return transmission;
+                    })
+            );
+
+            carCopyist.put("transmission", copyist);
         }
 
         Car sourceCar = createBmvI3();
@@ -54,6 +66,9 @@ public class ObjectCopyTest {
 
         Assert.assertEquals(sourceCar.getEngine().getCountCylinder(), newCarCopy.getEngine().getCountCylinder());
         Assert.assertNotEquals(sourceCar.getEngine(), newCarCopy.getEngine());
+
+        Assert.assertEquals(sourceCar.getTransmission().getTransmissionType(), newCarCopy.getTransmission().getTransmissionType());
+        Assert.assertNotEquals(sourceCar.getTransmission(), newCarCopy.getTransmission());
     }
 
     private Car createBmvI3() {

@@ -1,5 +1,7 @@
 package com.checkaboy.deepcopy.copyist;
 
+import com.checkaboy.deepcopy.cloner.Cloner;
+import com.checkaboy.deepcopy.cloner.interf.ICloner;
 import com.checkaboy.deepcopy.copyist.interf.ICopyist;
 
 import java.util.function.BiConsumer;
@@ -13,15 +15,23 @@ public class FieldCopyist<O, V>
 
     private final Function<O, V> extractor;
     private final BiConsumer<O, V> inserter;
+    private final ICloner<V> cloner;
 
-    public FieldCopyist(Function<O, V> extractor, BiConsumer<O, V> inserter) {
+    public FieldCopyist(Function<O, V> extractor, BiConsumer<O, V> inserter, ICloner<V> cloner) {
         this.extractor = extractor;
         this.inserter = inserter;
+        this.cloner = cloner;
     }
 
     @Override
     public void copy(O source, O target) {
-        inserter.accept(target, extractor.apply(source));
+        V sourceValue = extractor.apply(source);
+        V targetValue = cloner.clone(sourceValue);
+        inserter.accept(target, targetValue);
+    }
+
+    public static <O, V> ICopyist<O> simpleCopyist(Function<O, V> extractor, BiConsumer<O, V> inserter) {
+        return new FieldCopyist<>(extractor, inserter, Cloner.simpleCloner());
     }
 
 }
