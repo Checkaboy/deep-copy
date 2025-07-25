@@ -1,15 +1,13 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.cloner.Cloner;
+import com.checkaboy.deepcopy.cloner.ObjectCloner;
 import com.checkaboy.deepcopy.copyist.FieldCopyist;
 import com.checkaboy.deepcopy.copyist.ObjectCopyist;
-import com.checkaboy.deepcopy.copyist.SubObjectCopyist;
-import com.checkaboy.deepcopy.copyist.SubObjectCopyist1;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
-import com.checkaboy.deepcopy.model.Car;
-import com.checkaboy.deepcopy.model.ETransmissionType;
-import com.checkaboy.deepcopy.model.Engine;
-import com.checkaboy.deepcopy.model.Transmission;
+import com.checkaboy.deepcopy.model.car.Car;
+import com.checkaboy.deepcopy.model.car.ETransmissionType;
+import com.checkaboy.deepcopy.model.car.Engine;
+import com.checkaboy.deepcopy.model.car.Transmission;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -32,28 +30,25 @@ public class ObjectCopyTest {
             engineCopyist.put("horsePower", FieldCopyist.simpleCopyist(Engine::getHorsePower, Engine::setCountCylinder));
             engineCopyist.put("volume", FieldCopyist.simpleCopyist(Engine::getVolume, Engine::setVolume));
             engineCopyist.put("countCylinder", FieldCopyist.simpleCopyist(Engine::getCountCylinder, Engine::setCountCylinder));
-            SubObjectCopyist1<Car, Engine> subObjectCopyist = new SubObjectCopyist1<>(car -> {
-                Engine engine = car.getEngine();
-                if (engine == null) return new Engine();
-                return engine;
-            }, Car::setEngine, engineCopyist);
-            carCopyist.put("engine", subObjectCopyist);
+
+            FieldCopyist<Car, Engine> copyist = new FieldCopyist<>(
+                    Car::getEngine,
+                    Car::setEngine,
+                    new ObjectCloner<>(Engine::new, engineCopyist)
+            );
+
+            carCopyist.put("engine", copyist);
         }
 
         {
+            IObjectCopyist<Transmission> objectCopyist = new ObjectCopyist<>();
+            objectCopyist.put("countSteps", FieldCopyist.simpleCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
+            objectCopyist.put("transmissionType", FieldCopyist.simpleCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
+
             FieldCopyist<Car, Transmission> copyist = new FieldCopyist<>(
                     Car::getTransmission,
                     Car::setTransmission,
-                    new Cloner<>(source -> {
-                        Transmission transmission = new Transmission();
-
-                        IObjectCopyist<Transmission> objectCopyist = new ObjectCopyist<>();
-                        objectCopyist.put("countSteps", FieldCopyist.simpleCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
-                        objectCopyist.put("transmissionType", FieldCopyist.simpleCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
-                        objectCopyist.copy(source, transmission);
-
-                        return transmission;
-                    })
+                    new ObjectCloner<>(Transmission::new, objectCopyist)
             );
 
             carCopyist.put("transmission", copyist);

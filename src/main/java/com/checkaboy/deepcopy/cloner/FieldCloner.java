@@ -5,12 +5,12 @@ import com.checkaboy.deepcopy.cloner.interf.ICloner;
 /**
  * @author Taras Shaptala
  */
-public class Cloner<O>
+public class FieldCloner<O>
         implements ICloner<O> {
 
     private final ICloner<O> cloner;
 
-    public Cloner(ICloner<O> cloner) {
+    public FieldCloner(ICloner<O> cloner) {
         this.cloner = cloner;
     }
 
@@ -20,7 +20,7 @@ public class Cloner<O>
     }
 
     public static <O> ICloner<O> simpleCloner() {
-        return new Cloner<>(source -> source);
+        return new FieldCloner<>(source -> source);
     }
 
 }

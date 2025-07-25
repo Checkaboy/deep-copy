@@ -1,4 +1,4 @@
-package com.checkaboy.deepcopy.model;
+package com.checkaboy.deepcopy.model.car;
 
 /**
  * @author Taras Shaptala

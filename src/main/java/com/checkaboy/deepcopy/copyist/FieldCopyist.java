@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.copyist;
 
-import com.checkaboy.deepcopy.cloner.Cloner;
+import com.checkaboy.deepcopy.cloner.FieldCloner;
 import com.checkaboy.deepcopy.cloner.interf.ICloner;
 import com.checkaboy.deepcopy.copyist.interf.ICopyist;
 
@@ -31,7 +31,7 @@ public class FieldCopyist<O, V>
     }
 
     public static <O, V> ICopyist<O> simpleCopyist(Function<O, V> extractor, BiConsumer<O, V> inserter) {
-        return new FieldCopyist<>(extractor, inserter, Cloner.simpleCloner());
+        return new FieldCopyist<>(extractor, inserter, FieldCloner.simpleCloner());
     }
 
 }

@@ -1,7 +1,8 @@
 package com.checkaboy.deepcopy.copyist;
 
+import com.checkaboy.deepcopy.cloner.FieldCloner;
+import com.checkaboy.deepcopy.cloner.interf.ICloner;
 import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
-import com.checkaboy.deepcopy.copyist.interf.ICopyist;
 
 import java.util.Collection;
 
@@ -11,10 +12,10 @@ import java.util.Collection;
 public class CollectionCopyist<C extends Collection<V>, V>
         implements ICollectionCopyist<C, V> {
 
-    protected final ICopyist<V> copyist;
+    private final ICloner<V> cloner;
 
-    public CollectionCopyist(ICopyist<V> copyist) {
-        this.copyist = copyist;
+    public CollectionCopyist(ICloner<V> cloner) {
+        this.cloner = cloner;
     }
 
     @Override
@@ -22,11 +23,12 @@ public class CollectionCopyist<C extends Collection<V>, V>
         if (source != null) {
             if (source.isEmpty()) return;
 
-            source.forEach(v -> {
-
-            });
+            source.forEach(o -> target.add(cloner.clone(o)));
         }
     }
 
+    public static <C extends Collection<V>, V> CollectionCopyist<C, V> primitiveCollectionCopyist() {
+        return new CollectionCopyist<>(FieldCloner.simpleCloner());
+    }
 
 }

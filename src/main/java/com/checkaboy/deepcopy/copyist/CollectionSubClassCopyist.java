@@ -16,14 +16,14 @@ public class CollectionSubClassCopyist<O, C extends Collection<V>, V>
     private final Function<O, C> extractor;
     private final BiConsumer<O, C> inserter;
     protected final Function<Integer, C> collectionFactory;
-    protected final Supplier<V> objectFactory;
+    protected final Supplier<V> constructor;
     protected final ICopyist<V> copyist;
 
-    public CollectionSubClassCopyist(Function<O, C> extractor, BiConsumer<O, C> inserter, Function<Integer, C> collectionFactory, Supplier<V> objectFactory, ICopyist<V> copyist) {
+    public CollectionSubClassCopyist(Function<O, C> extractor, BiConsumer<O, C> inserter, Function<Integer, C> collectionFactory, Supplier<V> constructor, ICopyist<V> copyist) {
         this.extractor = extractor;
         this.inserter = inserter;
         this.collectionFactory = collectionFactory;
-        this.objectFactory = objectFactory;
+        this.constructor = constructor;
         this.copyist = copyist;
     }
 
@@ -35,7 +35,7 @@ public class CollectionSubClassCopyist<O, C extends Collection<V>, V>
             C newTargetCollection = collectionFactory.apply(sourceCollection.size());
 
             for (V sourceValue : sourceCollection) {
-                V newTargetValue = objectFactory.get();
+                V newTargetValue = constructor.get();
                 copyist.copy(sourceValue, newTargetValue);
                 newTargetCollection.add(newTargetValue);
             }
