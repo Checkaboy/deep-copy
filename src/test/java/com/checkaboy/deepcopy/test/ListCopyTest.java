@@ -43,6 +43,7 @@ public class ListCopyTest {
 
     @Test
     public void primitiveListClone() {
+
         List<String> sourceList = listGenerate();
 
         CollectionCloner<List<String>, String> collectionCloner = CollectionCloner.primitiveCollectionCloner(ArrayList::new);
