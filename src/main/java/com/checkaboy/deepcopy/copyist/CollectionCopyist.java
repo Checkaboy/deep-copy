@@ -21,13 +21,14 @@ public class CollectionCopyist<C extends Collection<V>, V>
     @Override
     public void copy(C source, C target) {
         if (source != null) {
+            if (!target.isEmpty()) target.clear();
             if (source.isEmpty()) return;
 
             source.forEach(o -> target.add(cloner.clone(o)));
         }
     }
 
-    public static <C extends Collection<V>, V> CollectionCopyist<C, V> primitiveCollectionCopyist() {
+    public static <C extends Collection<V>, V> ICollectionCopyist<C, V> primitiveCollectionCopyist() {
         return new CollectionCopyist<>(FieldCloner.simpleCloner());
     }
 

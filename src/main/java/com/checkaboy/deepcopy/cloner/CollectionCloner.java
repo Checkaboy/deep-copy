@@ -1,22 +1,22 @@
 package com.checkaboy.deepcopy.cloner;
 
-import com.checkaboy.deepcopy.cloner.interf.ICloner;
+import com.checkaboy.deepcopy.cloner.interf.ICollectionCloner;
 import com.checkaboy.deepcopy.copyist.CollectionCopyist;
 import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 
 import java.util.Collection;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * @author Taras Shaptala
  */
 public class CollectionCloner<C extends Collection<V>, V>
-        implements ICloner<C> {
+        implements ICollectionCloner<C, V> {
 
-    private final Supplier<C> constructor;
+    private final Function<Integer, C> constructor;
     private final ICollectionCopyist<C, V> copyist;
 
-    public CollectionCloner(Supplier<C> constructor, ICollectionCopyist<C, V> copyist) {
+    public CollectionCloner(Function<Integer, C> constructor, ICollectionCopyist<C, V> copyist) {
         this.constructor = constructor;
         this.copyist = copyist;
     }
@@ -26,13 +26,13 @@ public class CollectionCloner<C extends Collection<V>, V>
         if (source == null)
             return null;
 
-        C newTargetCollection = constructor.get();
+        C newTargetCollection = constructor.apply(source.size());
         copyist.copy(source, newTargetCollection);
 
         return newTargetCollection;
     }
 
-    public static <C extends Collection<V>, V> CollectionCloner<C, V> primitiveCollectionCloner(Supplier<C> constructor) {
+    public static <C extends Collection<V>, V> ICollectionCloner<C, V> primitiveCollectionCloner(Function<Integer, C> constructor) {
         return new CollectionCloner<>(constructor, CollectionCopyist.primitiveCollectionCopyist());
     }
 

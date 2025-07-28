@@ -2,9 +2,11 @@ package com.checkaboy.deepcopy.test;
 
 import com.checkaboy.deepcopy.cloner.CollectionCloner;
 import com.checkaboy.deepcopy.cloner.ObjectCloner;
+import com.checkaboy.deepcopy.cloner.interf.ICollectionCloner;
 import com.checkaboy.deepcopy.copyist.CollectionCopyist;
 import com.checkaboy.deepcopy.copyist.FieldCopyist;
 import com.checkaboy.deepcopy.copyist.ObjectCopyist;
+import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 import com.checkaboy.deepcopy.model.pet.EAnimal;
 import com.checkaboy.deepcopy.model.pet.Pet;
 import org.junit.Assert;
@@ -24,7 +26,7 @@ public class ListCopyTest {
         List<String> sourceList = listGenerate();
         List<String> cloneList = new ArrayList<>();
 
-        CollectionCopyist<List<String>, String> collectionCopyist = CollectionCopyist.primitiveCollectionCopyist();
+        ICollectionCopyist<List<String>, String> collectionCopyist = CollectionCopyist.primitiveCollectionCopyist();
 
         System.out.println(sourceList);
         System.out.println(cloneList);
@@ -46,7 +48,7 @@ public class ListCopyTest {
 
         List<String> sourceList = listGenerate();
 
-        CollectionCloner<List<String>, String> collectionCloner = CollectionCloner.primitiveCollectionCloner(ArrayList::new);
+        ICollectionCloner<List<String>, String> collectionCloner = CollectionCloner.primitiveCollectionCloner(ArrayList::new);
 
         List<String> copyList = collectionCloner.clone(sourceList);
 
