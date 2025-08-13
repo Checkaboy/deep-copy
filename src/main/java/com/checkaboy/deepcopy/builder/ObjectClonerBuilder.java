@@ -13,22 +13,27 @@ import java.util.function.Supplier;
 public class ObjectClonerBuilder<O> {
 
     private final Class<O> type;
-    private Supplier<O> constructor = () -> null;
+    private Supplier<O> constructor;
     private IObjectCopyist<O> objectCopyist = new ObjectCopyist<>();
 
     public ObjectClonerBuilder(Class<O> type) {
         this.type = type;
     }
 
-    public void setConstructor(Supplier<O> constructor) {
+    public ObjectClonerBuilder<O> setConstructor(Supplier<O> constructor) {
         this.constructor = constructor;
+        return this;
     }
 
-    public void setObjectCopyist(IObjectCopyist<O> objectCopyist) {
+    public ObjectClonerBuilder<O> setObjectCopyist(IObjectCopyist<O> objectCopyist) {
         this.objectCopyist = objectCopyist;
+        return this;
     }
 
     public IObjectCloner<O> build() {
+        if (constructor == null)
+            throw new NullPointerException("ObjectClonerBuilder<" + getType().getSimpleName() + "> can`t create " +
+                    "ObjectCloner<" + getType().getSimpleName() + "> without constructor");
         return new ObjectCloner<>(constructor, objectCopyist);
     }
 
