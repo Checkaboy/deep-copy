@@ -1,6 +1,10 @@
 package com.checkaboy.deepcopy.builder;
 
-import com.checkaboy.deepcopy.copyist.interf.ICopyist;
+import com.checkaboy.deepcopy.builder.interf.IObjectCopyistBuilder;
+import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
+import com.checkaboy.deepcopy.copyist.ObjectCopyist;
+import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
+import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,29 +12,36 @@ import java.util.Map;
 /**
  * @author Taras Shaptala
  */
-public class ObjectCopyistBuilder<O> {
+public class ObjectCopyistBuilder<O>
+        extends AbstractTypifiedContainer<O>
+        implements IObjectCopyistBuilder<O> {
 
-    private final Class<O> type;
-    private Map<String, ICopyist<O>> fieldCopyistMap = new HashMap<>();
+    private Map<String, IFieldCopyist<O>> fieldCopyistMap = new HashMap<>();
 
     public ObjectCopyistBuilder(Class<O> type) {
-        this.type = type;
+        super(type);
     }
 
-    public void setFieldCopyists(Map<String, ICopyist<O>> fieldCopyistMap) {
+    @Override
+    public ObjectCopyistBuilder<O> setFieldCopyists(Map<String, IFieldCopyist<O>> fieldCopyistMap) {
         this.fieldCopyistMap = fieldCopyistMap;
+        return this;
     }
 
-    public void putFieldCopyist(String fieldName, ICopyist<O> copyist) {
-        this.fieldCopyistMap.put(fieldName, copyist);
+    @Override
+    public ObjectCopyistBuilder<O> putFieldCopyist(String fieldName, IFieldCopyist<O> fieldCopyist) {
+        this.fieldCopyistMap.put(fieldName, fieldCopyist);
+        return this;
     }
 
-    public void putAllFieldCopyists(Map<String, ICopyist<O>> fieldCopyistMap) {
+    @Override
+    public ObjectCopyistBuilder<O> putAllFieldCopyists(Map<String, IFieldCopyist<O>> fieldCopyistMap) {
         this.fieldCopyistMap.putAll(fieldCopyistMap);
+        return this;
     }
 
-    public Class<O> getType() {
-        return type;
+    public IObjectCopyist<O> build() {
+        return new ObjectCopyist<>(fieldCopyistMap);
     }
 
 }

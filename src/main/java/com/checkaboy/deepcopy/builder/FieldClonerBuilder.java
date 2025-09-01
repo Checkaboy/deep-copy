@@ -1,30 +1,31 @@
 package com.checkaboy.deepcopy.builder;
 
+import com.checkaboy.deepcopy.builder.interf.IFieldClonerBuilder;
 import com.checkaboy.deepcopy.cloner.FieldCloner;
-import com.checkaboy.deepcopy.cloner.interf.ICloner;
+import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
+import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
 
 /**
  * @author Taras Shaptala
  */
-public class FieldClonerBuilder<O> {
+public class FieldClonerBuilder<O>
+        extends AbstractTypifiedContainer<O>
+        implements IFieldClonerBuilder<O> {
 
-    private final Class<O> type;
-    private ICloner<O> cloner = source -> source;
+    private IFieldCloner<O> fieldCloner = source -> source;
 
     public FieldClonerBuilder(Class<O> type) {
-        this.type = type;
+        super(type);
     }
 
-    public void setCloner(ICloner<O> cloner) {
-        this.cloner = cloner;
+    @Override
+    public IFieldClonerBuilder<O> setFieldCloner(IFieldCloner<O> fieldCloner) {
+        this.fieldCloner = fieldCloner;
+        return this;
     }
 
-    public ICloner<O> build() {
-        return new FieldCloner<>(cloner);
-    }
-
-    public Class<O> getType() {
-        return type;
+    public IFieldCloner<O> build() {
+        return new FieldCloner<>(fieldCloner);
     }
 
 }

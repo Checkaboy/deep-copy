@@ -14,11 +14,11 @@ public class CollectionCloner<C extends Collection<V>, V>
         implements ICollectionCloner<C, V> {
 
     private final Function<Integer, C> constructor;
-    private final ICollectionCopyist<C, V> copyist;
+    private final ICollectionCopyist<C, V> collectionCopyist;
 
-    public CollectionCloner(Function<Integer, C> constructor, ICollectionCopyist<C, V> copyist) {
+    public CollectionCloner(Function<Integer, C> constructor, ICollectionCopyist<C, V> collectionCopyist) {
         this.constructor = constructor;
-        this.copyist = copyist;
+        this.collectionCopyist = collectionCopyist;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class CollectionCloner<C extends Collection<V>, V>
             return null;
 
         C newTargetCollection = constructor.apply(source.size());
-        copyist.copy(source, newTargetCollection);
+        collectionCopyist.copy(source, newTargetCollection);
 
         return newTargetCollection;
     }

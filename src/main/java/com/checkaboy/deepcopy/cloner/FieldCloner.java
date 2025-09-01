@@ -1,25 +1,25 @@
 package com.checkaboy.deepcopy.cloner;
 
-import com.checkaboy.deepcopy.cloner.interf.ICloner;
+import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 
 /**
  * @author Taras Shaptala
  */
 public class FieldCloner<O>
-        implements ICloner<O> {
+        implements IFieldCloner<O> {
 
-    private final ICloner<O> cloner;
+    private final IFieldCloner<O> fieldCloner;
 
-    public FieldCloner(ICloner<O> cloner) {
-        this.cloner = cloner;
+    public FieldCloner(IFieldCloner<O> fieldCloner) {
+        this.fieldCloner = fieldCloner;
     }
 
     @Override
     public O clone(O source) {
-        return cloner.clone(source);
+        return fieldCloner.clone(source);
     }
 
-    public static <O> ICloner<O> simpleCloner() {
+    public static <O> IFieldCloner<O> simpleFieldCloner() {
         return new FieldCloner<>(source -> source);
     }
 

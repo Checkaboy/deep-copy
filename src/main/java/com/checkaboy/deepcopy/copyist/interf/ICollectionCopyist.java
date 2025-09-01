@@ -6,5 +6,5 @@ import java.util.Collection;
  * @author Taras Shaptala
  */
 public interface ICollectionCopyist<C extends Collection<V>, V>
-        extends ICopyist<C> {
+        extends IFieldCopyist<C> {
 }

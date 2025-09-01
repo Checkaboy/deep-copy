@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.builder;
 
-import com.checkaboy.deepcopy.cloner.interf.ICloner;
-import com.checkaboy.deepcopy.copyist.CollectionCopyist;
+import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
+import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 
 import java.util.Set;
 
@@ -16,13 +16,13 @@ public class SetCopyistBuilder<V>
     }
 
     @Override
-    public SetCopyistBuilder<V> setCloner(ICloner<V> cloner) {
-        super.setCloner(cloner);
+    public SetCopyistBuilder<V> setFieldCloner(IFieldCloner<V> fieldCloner) {
+        super.setFieldCloner(fieldCloner);
         return this;
     }
 
     @Override
-    public CollectionCopyist<Set<V>, V> build() {
+    public ICollectionCopyist<Set<V>, V> build() {
         return super.build();
     }
 

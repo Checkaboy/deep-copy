@@ -68,9 +68,9 @@ public class ListCopyTest {
                 new CollectionCopyist<>(new ObjectCloner<>(
                         Pet::new,
                         new ObjectCopyist<>(Map.ofEntries(
-                                Map.entry("nickname", FieldCopyist.simpleCopyist(Pet::getNickname, Pet::setNickname)),
-                                Map.entry("age", FieldCopyist.simpleCopyist(Pet::getAge, Pet::setAge)),
-                                Map.entry("animal", FieldCopyist.simpleCopyist(Pet::getAnimal, Pet::setAnimal))
+                                Map.entry("nickname", FieldCopyist.simpleFieldCopyist(Pet::getNickname, Pet::setNickname)),
+                                Map.entry("age", FieldCopyist.simpleFieldCopyist(Pet::getAge, Pet::setAge)),
+                                Map.entry("animal", FieldCopyist.simpleFieldCopyist(Pet::getAnimal, Pet::setAnimal))
                         ))
                 ))
         );

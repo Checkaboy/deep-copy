@@ -1,9 +1,9 @@
 package com.checkaboy.deepcopy.builder.interf;
 
-import com.checkaboy.deepcopy.cloner.interf.ICloner;
+import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 
 public interface ICollectionCopyistBuilder<V> {
 
-    ICollectionCopyistBuilder<V> setCloner(ICloner<V> cloner);
+    ICollectionCopyistBuilder<V> setFieldCloner(IFieldCloner<V> fieldCloner);
 
 }

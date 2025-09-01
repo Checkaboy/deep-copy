@@ -1,4 +1,4 @@
-package com.checkaboy.deepcopy.cloner.interf;
+package com.checkaboy.deepcopy;
 
 /**
  * @author Taras Shaptala

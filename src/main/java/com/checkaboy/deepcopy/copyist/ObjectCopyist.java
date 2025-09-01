@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.copyist;
 
-import com.checkaboy.deepcopy.copyist.interf.ICopyist;
+import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
 
 import java.util.Collection;
@@ -14,25 +14,25 @@ import java.util.Set;
 public class ObjectCopyist<O>
         implements IObjectCopyist<O> {
 
-    private final Map<String, ICopyist<O>> fieldCopyistMap;
+    private final Map<String, IFieldCopyist<O>> fieldCopyistMap;
 
     public ObjectCopyist() {
         this(new HashMap<>());
     }
 
-    public ObjectCopyist(Map<String, ICopyist<O>> fieldCopyistMap) {
+    public ObjectCopyist(Map<String, IFieldCopyist<O>> fieldCopyistMap) {
         this.fieldCopyistMap = fieldCopyistMap;
     }
 
     @Override
     public void copy(O source, O target) {
-        for (Entry<String, ICopyist<O>> entry : entrySet())
+        for (Entry<String, IFieldCopyist<O>> entry : entrySet())
             entry.getValue().copy(source, target);
     }
 
     @Override
     public void fieldCopy(String fieldName, O source, O target) {
-        ICopyist<O> fieldComparator = fieldCopyistMap.get(fieldName);
+        IFieldCopyist<O> fieldComparator = fieldCopyistMap.get(fieldName);
         if (fieldComparator != null)
             fieldComparator.copy(source, target);
     }
@@ -58,22 +58,22 @@ public class ObjectCopyist<O>
     }
 
     @Override
-    public ICopyist<O> get(Object key) {
+    public IFieldCopyist<O> get(Object key) {
         return fieldCopyistMap.get(key);
     }
 
     @Override
-    public ICopyist<O> put(String key, ICopyist<O> value) {
+    public IFieldCopyist<O> put(String key, IFieldCopyist<O> value) {
         return fieldCopyistMap.put(key, value);
     }
 
     @Override
-    public ICopyist<O> remove(Object key) {
+    public IFieldCopyist<O> remove(Object key) {
         return fieldCopyistMap.remove(key);
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends ICopyist<O>> m) {
+    public void putAll(Map<? extends String, ? extends IFieldCopyist<O>> m) {
         fieldCopyistMap.putAll(m);
     }
 
@@ -88,12 +88,12 @@ public class ObjectCopyist<O>
     }
 
     @Override
-    public Collection<ICopyist<O>> values() {
+    public Collection<IFieldCopyist<O>> values() {
         return fieldCopyistMap.values();
     }
 
     @Override
-    public Set<Entry<String, ICopyist<O>>> entrySet() {
+    public Set<Entry<String, IFieldCopyist<O>>> entrySet() {
         return fieldCopyistMap.entrySet();
     }
 

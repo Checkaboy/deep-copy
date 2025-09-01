@@ -9,6 +9,6 @@ public interface ICollectionClonerBuilder<C extends Collection<V>, V> {
 
     ICollectionClonerBuilder<C, V> setConstructor(Function<Integer, C> constructor);
 
-    ICollectionClonerBuilder<C, V> setCopyist(ICollectionCopyist<C, V> copyist);
+    ICollectionClonerBuilder<C, V> setCollectionCopyist(ICollectionCopyist<C, V> collectionFieldCopyist);
 
 }

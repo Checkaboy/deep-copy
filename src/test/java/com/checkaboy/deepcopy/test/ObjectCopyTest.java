@@ -20,16 +20,16 @@ public class ObjectCopyTest {
     public void carCopyTest() {
         IObjectCopyist<Car> carCopyist = new ObjectCopyist<>();
 
-        carCopyist.put("carBrand", FieldCopyist.simpleCopyist(Car::getCarBrand, Car::setCarBrand));
-        carCopyist.put("model", FieldCopyist.simpleCopyist(Car::getModel, Car::setModel));
-        carCopyist.put("color", FieldCopyist.simpleCopyist(Car::getColor, Car::setColor));
-        carCopyist.put("doorCount", FieldCopyist.simpleCopyist(Car::getDoorCount, Car::setDoorCount));
+        carCopyist.put("carBrand", FieldCopyist.simpleFieldCopyist(Car::getCarBrand, Car::setCarBrand));
+        carCopyist.put("model", FieldCopyist.simpleFieldCopyist(Car::getModel, Car::setModel));
+        carCopyist.put("color", FieldCopyist.simpleFieldCopyist(Car::getColor, Car::setColor));
+        carCopyist.put("doorCount", FieldCopyist.simpleFieldCopyist(Car::getDoorCount, Car::setDoorCount));
 
         {
             IObjectCopyist<Engine> engineCopyist = new ObjectCopyist<>();
-            engineCopyist.put("horsePower", FieldCopyist.simpleCopyist(Engine::getHorsePower, Engine::setCountCylinder));
-            engineCopyist.put("volume", FieldCopyist.simpleCopyist(Engine::getVolume, Engine::setVolume));
-            engineCopyist.put("countCylinder", FieldCopyist.simpleCopyist(Engine::getCountCylinder, Engine::setCountCylinder));
+            engineCopyist.put("horsePower", FieldCopyist.simpleFieldCopyist(Engine::getHorsePower, Engine::setCountCylinder));
+            engineCopyist.put("volume", FieldCopyist.simpleFieldCopyist(Engine::getVolume, Engine::setVolume));
+            engineCopyist.put("countCylinder", FieldCopyist.simpleFieldCopyist(Engine::getCountCylinder, Engine::setCountCylinder));
 
             FieldCopyist<Car, Engine> copyist = new FieldCopyist<>(
                     Car::getEngine,
@@ -42,8 +42,8 @@ public class ObjectCopyTest {
 
         {
             IObjectCopyist<Transmission> objectCopyist = new ObjectCopyist<>();
-            objectCopyist.put("countSteps", FieldCopyist.simpleCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
-            objectCopyist.put("transmissionType", FieldCopyist.simpleCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
+            objectCopyist.put("countSteps", FieldCopyist.simpleFieldCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
+            objectCopyist.put("transmissionType", FieldCopyist.simpleFieldCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
 
             FieldCopyist<Car, Transmission> copyist = new FieldCopyist<>(
                     Car::getTransmission,
