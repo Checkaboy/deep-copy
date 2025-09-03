@@ -3,8 +3,8 @@ package com.checkaboy.deepcopy;
 /**
  * @author Taras Shaptala
  */
-public interface ICloner<O> {
+public interface ICloner<S, T> {
 
-    O clone(O source);
+    T clone(S source);
 
 }

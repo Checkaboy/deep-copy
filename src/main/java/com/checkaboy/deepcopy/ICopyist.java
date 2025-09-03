@@ -3,8 +3,8 @@ package com.checkaboy.deepcopy;
 /**
  * @author Taras Shaptala
  */
-public interface ICopyist<O> {
+public interface ICopyist<S, T> {
 
-    void copy(O source, O target);
+    void copy(S source, T target);
 
 }

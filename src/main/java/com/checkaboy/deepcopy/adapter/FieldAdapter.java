@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @author Taras Shaptala
  */
 public class FieldAdapter<S, T, V>
-        implements com.checkaboy.deepcopy.adapter.interf.IFieldAdapter<S, T> {
+        implements IFieldAdapter<S, T> {
 
     private final Function<S, V> extractor;
     private final BiConsumer<T, V> inserter;

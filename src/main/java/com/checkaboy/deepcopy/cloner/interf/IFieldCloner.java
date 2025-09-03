@@ -6,6 +6,6 @@ import com.checkaboy.deepcopy.ICloner;
  * @author Taras Shaptala
  */
 public interface IFieldCloner<O>
-        extends ICloner<O> {
+        extends ICloner<O, O> {
 
 }
