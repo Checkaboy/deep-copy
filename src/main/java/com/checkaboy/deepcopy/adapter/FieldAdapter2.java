@@ -43,4 +43,8 @@ public class FieldAdapter2<SO, TO, SV, TV>
         inserter.accept(target, valueTarget);
     }
 
+    public static <S, T, V> IFieldAdapter<S, T> simpleFieldAdapter(Function<S, V> extractor, BiConsumer<T, V> inserter) {
+        return new FieldAdapter2<>(extractor, v -> v, (source, target) -> {}, inserter);
+    }
+
 }

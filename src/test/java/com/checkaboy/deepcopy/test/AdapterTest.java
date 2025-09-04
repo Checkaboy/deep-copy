@@ -71,33 +71,14 @@ public class AdapterTest {
     public void objectAdapterWithSubClassTest() {
         IObjectAdapter<BookDto, BookEntity> bookDtoAdapter = new ObjectAdapter<>();
 
-        bookDtoAdapter.put("id", new FieldAdapter2<>(
-                BookDto::getId, o -> o, (source, target) -> {}, BookEntity::setId));
-        bookDtoAdapter.put("name", new FieldAdapter2<>(
-                BookDto::getName, o -> o, (source, target) -> {}, BookEntity::setName));
+        bookDtoAdapter.put("id", FieldAdapter2.simpleFieldAdapter(BookDto::getId, BookEntity::setId));
+        bookDtoAdapter.put("name", FieldAdapter2.simpleFieldAdapter(BookDto::getName, BookEntity::setName));
         {
             IObjectAdapter<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectAdapter<>();
 
-            authorObjectDtoAdapter.put("id", new FieldAdapter2<>(
-                    AuthorDto::getId,
-                    id -> id,
-                    (source, target) -> {},
-                    AuthorEntity::setId
-            ));
-
-            authorObjectDtoAdapter.put("firstName", new FieldAdapter2<>(
-                    AuthorDto::getFirstName,
-                    firstName -> firstName,
-                    (source, target) -> {},
-                    AuthorEntity::setFirstName
-            ));
-
-            authorObjectDtoAdapter.put("lastName", new FieldAdapter2<>(
-                    AuthorDto::getLastName,
-                    lastName -> lastName,
-                    (source, target) -> {},
-                    AuthorEntity::setLastName
-            ));
+            authorObjectDtoAdapter.put("id", FieldAdapter2.simpleFieldAdapter(AuthorDto::getId, AuthorEntity::setId));
+            authorObjectDtoAdapter.put("firstName", FieldAdapter2.simpleFieldAdapter(AuthorDto::getFirstName, AuthorEntity::setFirstName));
+            authorObjectDtoAdapter.put("lastName", FieldAdapter2.simpleFieldAdapter(AuthorDto::getLastName, AuthorEntity::setLastName));
 
             FieldAdapter2<BookDto, BookEntity, AuthorDto, AuthorEntity> authorFieldDtoAdapter = new FieldAdapter2<>(
                     BookDto::getAuthor,
