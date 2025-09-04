@@ -21,6 +21,9 @@ public class ObjectCloner<O>
 
     @Override
     public O clone(O source) {
+        if(source == null)
+            return null;
+
         O newTarget = constructor.get();
         objectCopyist.copy(source, newTarget);
         return newTarget;

@@ -13,7 +13,7 @@ public class TransformerTest {
     @Test
     public void simpleTest() {
         IFieldTransformer<Integer, String> adapter = new FieldTransformer<>(Object::toString);
-        String string = adapter.clone(1);
+        String string = adapter.transform(1);
         Assert.assertEquals(string, "1");
     }
 

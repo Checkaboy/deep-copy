@@ -15,8 +15,11 @@ public class FieldTransformer<S, T>
     }
 
     @Override
-    public T clone(S source) {
-        return transformer.clone(source);
+    public T transform(S source) {
+        if(source == null)
+            return null;
+
+        return transformer.transform(source);
     }
 
     public static <O> IFieldTransformer<O, O> simpleFieldTransformer() {

@@ -16,6 +16,9 @@ public class FieldCloner<O>
 
     @Override
     public O clone(O source) {
+        if(source == null)
+            return null;
+
         return fieldCloner.clone(source);
     }
 

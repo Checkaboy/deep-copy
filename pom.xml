@@ -6,7 +6,7 @@
 
     <groupId>com.checkaboy</groupId>
     <artifactId>deepecopy</artifactId>
-    <version>0.1.ALPHA</version>
+    <version>0.2.ALPHA</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,8 +27,7 @@
         <dependency>
             <groupId>com.github.Checkaboy</groupId>
             <artifactId>object-utils</artifactId>
-            <!--     TODO Release version...       -->
-            <version>-27b7c0a697-1</version>
+            <version>0.1.ALPHA</version>
         </dependency>
 
         <dependency>

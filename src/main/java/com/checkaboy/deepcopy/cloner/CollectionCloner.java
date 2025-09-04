@@ -26,10 +26,10 @@ public class CollectionCloner<C extends Collection<V>, V>
         if (source == null)
             return null;
 
-        C newTargetCollection = constructor.apply(source.size());
-        collectionCopyist.copy(source, newTargetCollection);
+        C targetCollection = constructor.apply(source.size());
+        collectionCopyist.copy(source, targetCollection);
 
-        return newTargetCollection;
+        return targetCollection;
     }
 
     public static <C extends Collection<V>, V> ICollectionCloner<C, V> primitiveCollectionCloner(Function<Integer, C> constructor) {

@@ -1,0 +1,11 @@
+package com.checkaboy.deepcopy.filler.interf;
+
+import com.checkaboy.deepcopy.filler.IFiller;
+
+/**
+ * @author Taras Shaptala
+ */
+// TODO переименовать в Mapper
+public interface IFieldFiller<S, T>
+        extends IFiller<S, T> {
+}
