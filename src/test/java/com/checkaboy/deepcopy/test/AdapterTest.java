@@ -1,11 +1,8 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.adapter.FieldAdapter;
 import com.checkaboy.deepcopy.adapter.FieldAdapter2;
 import com.checkaboy.deepcopy.adapter.ObjectAdapter;
-import com.checkaboy.deepcopy.adapter.ObjectFieldAdapter;
 import com.checkaboy.deepcopy.adapter.interf.IFieldAdapter;
-import com.checkaboy.deepcopy.adapter.interf.IFieldAdapter2;
 import com.checkaboy.deepcopy.adapter.interf.IObjectAdapter;
 import com.checkaboy.deepcopy.model.book.dto.AuthorDto;
 import com.checkaboy.deepcopy.model.book.dto.BookDto;
@@ -42,7 +39,8 @@ public class AdapterTest {
         IFieldAdapter<Car, Pet> adapter = new FieldAdapter2<>(
                 Car::getColor,
                 s -> s,
-                (source, target) -> {},
+                (source, target) -> {
+                },
                 Pet::setNickname
         );
 
@@ -56,7 +54,8 @@ public class AdapterTest {
     public void objectAdapterTest() {
         IObjectAdapter<Car, Pet> adapter = new ObjectAdapter<>();
 
-        adapter.put("color", new FieldAdapter2<>(Car::getColor, s -> s, (source, target) -> {}, Pet::setNickname));
+        adapter.put("color", new FieldAdapter2<>(Car::getColor, s -> s, (source, target) -> {
+        }, Pet::setNickname));
 
         Car car = new Car();
         car.setColor("red");
@@ -72,10 +71,33 @@ public class AdapterTest {
     public void objectAdapterWithSubClassTest() {
         IObjectAdapter<BookDto, BookEntity> bookDtoAdapter = new ObjectAdapter<>();
 
-        bookDtoAdapter.put("id", new FieldAdapter2<>(BookDto::getId, o -> o, (source, target) -> {}, BookEntity::setId));
-        bookDtoAdapter.put("name", new FieldAdapter2<>(BookDto::getName, o -> o, (source, target) -> {}, BookEntity::setName));
+        bookDtoAdapter.put("id", new FieldAdapter2<>(
+                BookDto::getId, o -> o, (source, target) -> {}, BookEntity::setId));
+        bookDtoAdapter.put("name", new FieldAdapter2<>(
+                BookDto::getName, o -> o, (source, target) -> {}, BookEntity::setName));
         {
             IObjectAdapter<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectAdapter<>();
+
+            authorObjectDtoAdapter.put("id", new FieldAdapter2<>(
+                    AuthorDto::getId,
+                    id -> id,
+                    (source, target) -> {},
+                    AuthorEntity::setId
+            ));
+
+            authorObjectDtoAdapter.put("firstName", new FieldAdapter2<>(
+                    AuthorDto::getFirstName,
+                    firstName -> firstName,
+                    (source, target) -> {},
+                    AuthorEntity::setFirstName
+            ));
+
+            authorObjectDtoAdapter.put("lastName", new FieldAdapter2<>(
+                    AuthorDto::getLastName,
+                    lastName -> lastName,
+                    (source, target) -> {},
+                    AuthorEntity::setLastName
+            ));
 
             FieldAdapter2<BookDto, BookEntity, AuthorDto, AuthorEntity> authorFieldDtoAdapter = new FieldAdapter2<>(
                     BookDto::getAuthor,
@@ -87,7 +109,26 @@ public class AdapterTest {
             bookDtoAdapter.put("author", authorFieldDtoAdapter);
         }
 
+        BookEntity bookEntity = new BookEntity();
 
+        bookDtoAdapter.copy(createBook(), bookEntity);
+
+        System.out.println(bookEntity.getAuthor().getFirstName());
+    }
+
+    public BookDto createBook() {
+        BookDto book = new BookDto();
+        book.setId(1L);
+        book.setName("test name");
+        {
+            AuthorDto author = new AuthorDto();
+            author.setId(1L);
+            author.setFirstName("testFirstName");
+            author.setLastName("testLastName");
+            book.setAuthor(author);
+        }
+
+        return book;
     }
 
 }
