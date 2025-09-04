@@ -3,7 +3,7 @@ package com.checkaboy.deepcopy.builder;
 import com.checkaboy.deepcopy.builder.interf.IFieldClonerBuilder;
 import com.checkaboy.deepcopy.cloner.FieldCloner;
 import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
-import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 /**
  * @author Taras Shaptala

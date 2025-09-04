@@ -2,7 +2,7 @@ package com.checkaboy.deepcopy.builder;
 
 import com.checkaboy.deepcopy.builder.interf.IMapCopyistBuilder;
 import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
-import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 import com.checkaboy.deepcopy.copyist.MapCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IMapCopyist;
 

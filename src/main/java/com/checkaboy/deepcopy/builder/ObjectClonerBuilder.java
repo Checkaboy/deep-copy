@@ -3,7 +3,7 @@ package com.checkaboy.deepcopy.builder;
 import com.checkaboy.deepcopy.builder.interf.IObjectClonerBuilder;
 import com.checkaboy.deepcopy.cloner.ObjectCloner;
 import com.checkaboy.deepcopy.cloner.interf.IObjectCloner;
-import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 import com.checkaboy.deepcopy.copyist.ObjectCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
 

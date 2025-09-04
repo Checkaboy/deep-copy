@@ -1,10 +1,10 @@
-package com.checkaboy.deepcopy.adapter.interf;
+package com.checkaboy.deepcopy.transformer.interf;
 
 import com.checkaboy.deepcopy.ICloner;
 
 /**
  * @author Taras Shaptala
  */
-public interface IFieldAdapter2<S, T>
+public interface IFieldTransformer<S, T>
         extends ICloner<S, T> {
 }

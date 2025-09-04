@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.builder;
 
 import com.checkaboy.deepcopy.builder.interf.IObjectCopyistBuilder;
-import com.checkaboy.deepcopy.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 import com.checkaboy.deepcopy.copyist.ObjectCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
