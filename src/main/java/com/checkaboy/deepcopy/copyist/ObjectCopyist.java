@@ -36,9 +36,9 @@ public class ObjectCopyist<O>
 
     @Override
     public void fieldCopy(String fieldName, O source, O target) {
-        IFieldCopyist<O> fieldComparator = get(fieldName);
-        if (fieldComparator != null)
-            fieldComparator.copy(source, target);
+        IFieldCopyist<O> fieldCopyist = get(fieldName);
+        if (fieldCopyist != null)
+            fieldCopyist.copy(source, target);
     }
 
 }

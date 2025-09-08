@@ -7,5 +7,4 @@ import com.checkaboy.deepcopy.cloner.ICloner;
  */
 public interface IFieldCloner<O>
         extends ICloner<O> {
-
 }
