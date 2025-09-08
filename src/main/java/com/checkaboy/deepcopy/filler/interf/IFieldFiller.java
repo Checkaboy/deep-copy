@@ -1,7 +1,5 @@
 package com.checkaboy.deepcopy.filler.interf;
 
-import com.checkaboy.deepcopy.filler.IFiller;
-
 /**
  * @author Taras Shaptala
  */

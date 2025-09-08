@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.copyist.builder;
 
-import com.checkaboy.deepcopy.copyist.builder.interf.IMapCopyistBuilder;
 import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 import com.checkaboy.deepcopy.copyist.MapCopyist;
+import com.checkaboy.deepcopy.copyist.builder.interf.IMapCopyistBuilder;
 import com.checkaboy.deepcopy.copyist.interf.IMapCopyist;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.Map;
 

@@ -7,4 +7,7 @@ import java.util.Map;
  */
 public interface IObjectFiller<S, T>
         extends IFieldFiller<S, T>, Map<String, IFieldFiller<S, T>> {
+
+    void fieldFill(String fieldName, S source, T target);
+
 }

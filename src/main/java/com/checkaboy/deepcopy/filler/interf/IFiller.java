@@ -1,4 +1,4 @@
-package com.checkaboy.deepcopy.filler;
+package com.checkaboy.deepcopy.filler.interf;
 
 /**
  * @author Taras Shaptala

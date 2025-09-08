@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.cloner.builder.interf;
 
-import com.checkaboy.deepcopy.cloner.ICloner;
+import com.checkaboy.deepcopy.cloner.interf.ICloner;
 
 /**
  * @author Taras Shaptala

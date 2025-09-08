@@ -1,7 +1,5 @@
 package com.checkaboy.deepcopy.copyist.interf;
 
-import com.checkaboy.deepcopy.copyist.ICopyist;
-
 /**
  * @author Taras Shaptala
  */

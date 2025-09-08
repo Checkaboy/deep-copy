@@ -1,4 +1,4 @@
-package com.checkaboy.deepcopy.copyist;
+package com.checkaboy.deepcopy.copyist.interf;
 
 /**
  * @author Taras Shaptala

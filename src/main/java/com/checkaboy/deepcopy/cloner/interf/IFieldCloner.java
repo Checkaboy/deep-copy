@@ -1,7 +1,5 @@
 package com.checkaboy.deepcopy.cloner.interf;
 
-import com.checkaboy.deepcopy.cloner.ICloner;
-
 /**
  * @author Taras Shaptala
  */

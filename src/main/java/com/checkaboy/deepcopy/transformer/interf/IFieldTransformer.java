@@ -1,7 +1,5 @@
 package com.checkaboy.deepcopy.transformer.interf;
 
-import com.checkaboy.deepcopy.transformer.ITransformer;
-
 /**
  * @author Taras Shaptala
  */

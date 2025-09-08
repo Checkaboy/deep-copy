@@ -13,15 +13,15 @@ public class ObjectCopyist<O>
         extends HashMap<String, IFieldCopyist<O>>
         implements IObjectCopyist<O> {
 
-    public ObjectCopyist(int initialCapacity, float loadFactor) {
-        super(initialCapacity, loadFactor);
+    public ObjectCopyist() {
     }
 
     public ObjectCopyist(int initialCapacity) {
         super(initialCapacity);
     }
 
-    public ObjectCopyist() {
+    public ObjectCopyist(int initialCapacity, float loadFactor) {
+        super(initialCapacity, loadFactor);
     }
 
     public ObjectCopyist(Map<? extends String, ? extends IFieldCopyist<O>> m) {

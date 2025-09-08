@@ -1,4 +1,4 @@
-package com.checkaboy.deepcopy.transformer;
+package com.checkaboy.deepcopy.transformer.interf;
 
 /**
  * @author Taras Shaptala

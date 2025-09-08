@@ -13,15 +13,15 @@ public class ObjectFiller<S, T>
         extends HashMap<String, IFieldFiller<S, T>>
         implements IObjectFiller<S, T> {
 
-    public ObjectFiller(int initialCapacity, float loadFactor) {
-        super(initialCapacity, loadFactor);
+    public ObjectFiller() {
     }
 
     public ObjectFiller(int initialCapacity) {
         super(initialCapacity);
     }
 
-    public ObjectFiller() {
+    public ObjectFiller(int initialCapacity, float loadFactor) {
+        super(initialCapacity, loadFactor);
     }
 
     public ObjectFiller(Map<? extends String, ? extends IFieldFiller<S, T>> m) {
@@ -32,6 +32,13 @@ public class ObjectFiller<S, T>
     public void fill(S source, T target) {
         for (Entry<String, IFieldFiller<S, T>> entry : entrySet())
             entry.getValue().fill(source, target);
+    }
+
+    @Override
+    public void fieldFill(String fieldName, S source, T target) {
+        IFieldFiller<S, T> fieldFiller = get(source);
+        if (fieldFiller != null)
+            fieldFiller.fill(source, target);
     }
 
 }
