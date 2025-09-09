@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.copyist.FieldCopyist;
+import com.checkaboy.deepcopy.copyist.based.FieldCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
 import org.junit.Assert;
 import org.junit.Test;

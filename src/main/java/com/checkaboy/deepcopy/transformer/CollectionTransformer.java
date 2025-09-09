@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer;
 
-import com.checkaboy.deepcopy.filler.CollectionFiller;
+import com.checkaboy.deepcopy.filler.based.CollectionFiller;
 import com.checkaboy.deepcopy.filler.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.transformer.interf.ICollectionTransformer;
 
@@ -14,11 +14,11 @@ public class CollectionTransformer<SC extends Collection<SV>, SV, TC extends Col
         implements ICollectionTransformer<SC, SV, TC, TV> {
 
     private final Function<Integer, TC> constructor;
-    private final ICollectionFiller<SC, SV, TC, TV> collectionMapper;
+    private final ICollectionFiller<SC, SV, TC, TV> collectionFiller;
 
-    public CollectionTransformer(Function<Integer, TC> constructor, ICollectionFiller<SC, SV, TC, TV> collectionMapper) {
+    public CollectionTransformer(Function<Integer, TC> constructor, ICollectionFiller<SC, SV, TC, TV> collectionFiller) {
         this.constructor = constructor;
-        this.collectionMapper = collectionMapper;
+        this.collectionFiller = collectionFiller;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class CollectionTransformer<SC extends Collection<SV>, SV, TC extends Col
             return null;
 
         TC targetCollection = constructor.apply(source.size());
-        collectionMapper.fill(source, targetCollection);
+        collectionFiller.fill(source, targetCollection);
 
         return targetCollection;
     }

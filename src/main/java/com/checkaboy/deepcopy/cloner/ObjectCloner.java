@@ -9,18 +9,18 @@ import java.util.function.Supplier;
 /**
  * @author Taras Shaptala
  */
-public class ObjectCloner<O, K>
+public class ObjectCloner<O>
         implements IObjectCloner<O> {
 
     private final Supplier<O> constructor;
     private final IObjectCopyist<O> objectCopyist;
-    private final ICacheContext<O, O, K> cacheContext;
+    private final ICacheContext cacheContext;
 
     public ObjectCloner(Supplier<O> constructor, IObjectCopyist<O> objectCopyist) {
         this(constructor, objectCopyist, null);
     }
 
-    public ObjectCloner(Supplier<O> constructor, IObjectCopyist<O> objectCopyist, ICacheContext<O, O, K> cacheContext) {
+    public ObjectCloner(Supplier<O> constructor, IObjectCopyist<O> objectCopyist, ICacheContext cacheContext) {
         this.constructor = constructor;
         this.objectCopyist = objectCopyist;
         this.cacheContext = cacheContext;
@@ -31,14 +31,20 @@ public class ObjectCloner<O, K>
         if (source == null)
             return null;
 
-        O target;
         if (cacheContext == null) {
-            target = constructor.get();
+            O target = constructor.get();
             objectCopyist.copy(source, target);
             return target;
         }
 
-        target = cacheContext.putIfAbsent(source, constructor);
+        O cached = cacheContext.get(source);
+        if (cached != null) {
+            return cached;
+        }
+
+        O target = constructor.get();
+        cacheContext.put(source, target);
+
         objectCopyist.copy(source, target);
         return target;
     }

@@ -4,6 +4,7 @@ import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * @author Taras Shaptala
@@ -18,6 +19,12 @@ public class SetCopyistBuilder<V>
     @Override
     public SetCopyistBuilder<V> setFieldCloner(IFieldCloner<V> fieldCloner) {
         super.setFieldCloner(fieldCloner);
+        return this;
+    }
+
+    @Override
+    public SetCopyistBuilder<V> setPredicate(Predicate<V> predicate) {
+        super.setPredicate(predicate);
         return this;
     }
 

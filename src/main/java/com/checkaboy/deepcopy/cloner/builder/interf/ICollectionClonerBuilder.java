@@ -5,7 +5,8 @@ import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 import java.util.Collection;
 import java.util.function.Function;
 
-public interface ICollectionClonerBuilder<C extends Collection<V>, V> {
+public interface ICollectionClonerBuilder<C extends Collection<V>, V>
+        extends IClonerBuilder<C> {
 
     ICollectionClonerBuilder<C, V> setConstructor(Function<Integer, C> constructor);
 

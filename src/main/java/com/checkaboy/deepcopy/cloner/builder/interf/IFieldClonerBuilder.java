@@ -5,7 +5,8 @@ import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 /**
  * @author Taras Shaptala
  */
-public interface IFieldClonerBuilder<O> {
+public interface IFieldClonerBuilder<O>
+        extends IClonerBuilder<O> {
 
     IFieldClonerBuilder<O> setFieldCloner(IFieldCloner<O> fieldCloner);
 

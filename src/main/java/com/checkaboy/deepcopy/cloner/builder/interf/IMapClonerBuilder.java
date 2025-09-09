@@ -8,7 +8,8 @@ import java.util.function.Function;
 /**
  * @author Taras Shaptala
  */
-public interface IMapClonerBuilder<M extends Map<K, V>, K, V> {
+public interface IMapClonerBuilder<M extends Map<K, V>, K, V>
+        extends IClonerBuilder<M> {
 
     IMapClonerBuilder<M, K, V> setConstructor(Function<Integer, M> constructor);
 

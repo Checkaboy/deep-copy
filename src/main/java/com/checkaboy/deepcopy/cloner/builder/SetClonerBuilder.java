@@ -4,7 +4,7 @@ import com.checkaboy.deepcopy.cloner.builder.interf.ICollectionClonerBuilder;
 import com.checkaboy.deepcopy.cloner.CollectionCloner;
 import com.checkaboy.deepcopy.cloner.interf.ICollectionCloner;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
-import com.checkaboy.deepcopy.copyist.CollectionCopyist;
+import com.checkaboy.deepcopy.copyist.based.CollectionCopyist;
 import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 
 import java.util.HashSet;

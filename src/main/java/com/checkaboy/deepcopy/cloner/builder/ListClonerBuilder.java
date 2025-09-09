@@ -4,7 +4,7 @@ import com.checkaboy.deepcopy.cloner.builder.interf.ICollectionClonerBuilder;
 import com.checkaboy.deepcopy.cloner.CollectionCloner;
 import com.checkaboy.deepcopy.cloner.interf.ICollectionCloner;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
-import com.checkaboy.deepcopy.copyist.CollectionCopyist;
+import com.checkaboy.deepcopy.copyist.based.CollectionCopyist;
 import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
 
 import java.util.ArrayList;
@@ -25,16 +25,19 @@ public class ListClonerBuilder<V>
         super(type);
     }
 
+    @Override
     public ListClonerBuilder<V> setConstructor(Function<Integer, List<V>> constructor) {
         this.constructor = constructor;
         return this;
     }
 
+    @Override
     public ListClonerBuilder<V> setCollectionCopyist(ICollectionCopyist<List<V>, V> collectionFieldCopyist) {
         this.collectionCopyist = collectionFieldCopyist;
         return this;
     }
 
+    @Override
     public ICollectionCloner<List<V>, V> build() {
         return new CollectionCloner<>(constructor, collectionCopyist);
     }

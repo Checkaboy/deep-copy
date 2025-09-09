@@ -1,13 +1,15 @@
 package com.checkaboy.deepcopy.copyist.builder;
 
+import com.checkaboy.deepcopy.copyist.based.ObjectCopyist;
 import com.checkaboy.deepcopy.copyist.builder.interf.IObjectCopyistBuilder;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
-import com.checkaboy.deepcopy.copyist.ObjectCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
+import com.checkaboy.deepcopy.copyist.predicative.PredicativeObjectCopyist;
+import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * @author Taras Shaptala
@@ -17,6 +19,7 @@ public class ObjectCopyistBuilder<O>
         implements IObjectCopyistBuilder<O> {
 
     private Map<String, IFieldCopyist<O>> fieldCopyistMap = new HashMap<>();
+    private Predicate<String> predicate;
 
     public ObjectCopyistBuilder(Class<O> type) {
         super(type);
@@ -41,8 +44,15 @@ public class ObjectCopyistBuilder<O>
     }
 
     @Override
+    public ObjectCopyistBuilder<O> setPredicate(Predicate<String> predicate) {
+        this.predicate = predicate;
+        return this;
+    }
+
+    @Override
     public IObjectCopyist<O> build() {
-        return new ObjectCopyist<>(fieldCopyistMap);
+        if (predicate == null) return new ObjectCopyist<>(fieldCopyistMap);
+        else return new PredicativeObjectCopyist<>(fieldCopyistMap, predicate);
     }
 
 }

@@ -7,7 +7,8 @@ import java.util.function.Supplier;
 /**
  * @author Taras Shaptala
  */
-public interface IObjectClonerBuilder<O> {
+public interface IObjectClonerBuilder<O>
+        extends IClonerBuilder<O> {
 
     IObjectClonerBuilder<O> setConstructor(Supplier<O> constructor);
 

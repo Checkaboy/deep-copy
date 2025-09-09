@@ -1,8 +1,9 @@
 package com.checkaboy.deepcopy.test;
 
 import com.checkaboy.deepcopy.cloner.ObjectCloner;
-import com.checkaboy.deepcopy.copyist.FieldCopyist;
-import com.checkaboy.deepcopy.copyist.ObjectCopyist;
+import com.checkaboy.deepcopy.copyist.based.FieldCopyist;
+import com.checkaboy.deepcopy.copyist.based.ObjectCopyist;
+import com.checkaboy.deepcopy.copyist.interf.IFieldCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
 import com.checkaboy.deepcopy.model.car.Car;
 import com.checkaboy.deepcopy.model.car.ETransmissionType;
@@ -31,7 +32,7 @@ public class ObjectCopyTest {
             engineCopyist.put("volume", FieldCopyist.simpleFieldCopyist(Engine::getVolume, Engine::setVolume));
             engineCopyist.put("countCylinder", FieldCopyist.simpleFieldCopyist(Engine::getCountCylinder, Engine::setCountCylinder));
 
-            FieldCopyist<Car, Engine> copyist = new FieldCopyist<>(
+            IFieldCopyist<Car> copyist = new FieldCopyist<>(
                     Car::getEngine,
                     Car::setEngine,
                     new ObjectCloner<>(Engine::new, engineCopyist)
@@ -45,7 +46,7 @@ public class ObjectCopyTest {
             objectCopyist.put("countSteps", FieldCopyist.simpleFieldCopyist(Transmission::getCountSteps, Transmission::setCountSteps));
             objectCopyist.put("transmissionType", FieldCopyist.simpleFieldCopyist(Transmission::getTransmissionType, Transmission::setTransmissionType));
 
-            FieldCopyist<Car, Transmission> copyist = new FieldCopyist<>(
+            IFieldCopyist<Car> copyist = new FieldCopyist<>(
                     Car::getTransmission,
                     Car::setTransmission,
                     new ObjectCloner<>(Transmission::new, objectCopyist)

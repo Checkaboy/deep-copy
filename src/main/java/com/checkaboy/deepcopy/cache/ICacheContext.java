@@ -1,17 +1,19 @@
 package com.checkaboy.deepcopy.cache;
 
-import java.util.function.Supplier;
+import java.util.IdentityHashMap;
 
 /**
  * @author Taras Shaptala
  */
-public interface ICacheContext<S, T, K> {
+public interface ICacheContext {
 
-    T get(S source);
+    <S, T> T get(S source);
 
-    void put(S source, T target);
+    <S, T> void put(S source, T target);
 
-    T putIfAbsent(S source, Supplier<T> constructor);
+    static ICacheContext identityCache() {
+        return new MapCacheContext(new IdentityHashMap<>());
+    }
 
     void drop();
 

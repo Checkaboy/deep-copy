@@ -2,7 +2,7 @@ package com.checkaboy.deepcopy.cloner;
 
 import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 import com.checkaboy.deepcopy.cloner.interf.IMapCloner;
-import com.checkaboy.deepcopy.copyist.MapCopyist;
+import com.checkaboy.deepcopy.copyist.based.MapCopyist;
 import com.checkaboy.deepcopy.copyist.interf.IMapCopyist;
 
 import java.util.Map;

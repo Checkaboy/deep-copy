@@ -1,8 +1,10 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.filler.CollectionFiller;
-import com.checkaboy.deepcopy.filler.FieldFiller;
-import com.checkaboy.deepcopy.filler.ObjectFiller;
+import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.cache.MapCacheContext;
+import com.checkaboy.deepcopy.filler.based.CollectionFiller;
+import com.checkaboy.deepcopy.filler.based.FieldFiller;
+import com.checkaboy.deepcopy.filler.based.ObjectFiller;
 import com.checkaboy.deepcopy.filler.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.filler.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.interf.IObjectFiller;
@@ -14,6 +16,7 @@ import com.checkaboy.deepcopy.model.car.Car;
 import com.checkaboy.deepcopy.model.pet.Pet;
 import com.checkaboy.deepcopy.transformer.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.ObjectTransformer;
+import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
 import com.checkaboy.deepcopy.transformer.interf.IObjectTransformer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -114,8 +117,7 @@ public class FillerTest {
             bookDtoAdapter.put("name", FieldFiller.simpleFieldMapper(BookDto::getName, BookEntity::setName));
 
             ICollectionFiller<List<BookDto>, BookDto, List<BookEntity>, BookEntity> bookCollectionDtoAdapter = new CollectionFiller<>(
-                    BookEntity::new,
-                    bookDtoAdapter
+                    new ObjectTransformer<>(BookEntity::new, bookDtoAdapter)
             );
 
             authorObjectDtoAdapter.put("books", new FieldFiller<>(
@@ -157,8 +159,7 @@ public class FillerTest {
             ));
 
             ICollectionFiller<List<BookDto>, BookDto, List<BookEntity>, BookEntity> bookCollectionDtoAdapter = new CollectionFiller<>(
-                    BookEntity::new,
-                    bookDtoAdapter
+                    ObjectTransformer.simpleObjectTransformerWithIdentityCache(BookEntity::new, bookDtoAdapter)
             );
 
             authorObjectDtoAdapter.put("books", new FieldFiller<>(
@@ -174,7 +175,51 @@ public class FillerTest {
         authorDto.setBooks(createBooks());
         authorDto.getBooks().forEach(bookDto -> bookDto.setAuthor(authorDto));
 
-        IObjectTransformer<AuthorDto, AuthorEntity> transformer = new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter);
+        IObjectTransformer<AuthorDto, AuthorEntity> transformer = ObjectTransformer.simpleObjectTransformerWithIdentityCache(AuthorEntity::new, authorObjectDtoAdapter);
+        AuthorEntity authorEntity = transformer.transform(authorDto);
+        System.out.println(authorEntity.getId());
+    }
+
+    @Test
+    public void collectionAdapterTest3() {
+        ICacheContext ctx = MapCacheContext.identityCache();
+
+        IObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
+        authorObjectDtoAdapter.put("id", FieldFiller.simpleFieldMapper(AuthorDto::getId, AuthorEntity::setId));
+        authorObjectDtoAdapter.put("firstName", FieldFiller.simpleFieldMapper(AuthorDto::getFirstName, AuthorEntity::setFirstName));
+        authorObjectDtoAdapter.put("lastName", FieldFiller.simpleFieldMapper(AuthorDto::getLastName, AuthorEntity::setLastName));
+
+        IObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
+        bookDtoAdapter.put("id", FieldFiller.simpleFieldMapper(BookDto::getId, BookEntity::setId));
+        bookDtoAdapter.put("name", FieldFiller.simpleFieldMapper(BookDto::getName, BookEntity::setName));
+
+        // Book.author -> преобразуем AuthorDto в AuthorEntity, используя Тот же ctx
+        bookDtoAdapter.put("author", new FieldFiller<>(
+                BookDto::getAuthor,
+                BookEntity::setAuthor,
+                new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx) // тот же ctx
+        ));
+
+        // Transformer для BookEntity (также с тем же ctx)
+        IFieldTransformer<BookDto, BookEntity> bookTransformer = new ObjectTransformer<>(BookEntity::new, bookDtoAdapter, ctx);
+        ICollectionFiller<List<BookDto>, BookDto, List<BookEntity>, BookEntity> bookCollectionDtoAdapter =
+                new CollectionFiller<>(bookTransformer);
+
+        authorObjectDtoAdapter.put("books", new FieldFiller<>(
+                AuthorDto::getBooks,
+                AuthorEntity::setBooks,
+                new CollectionTransformer<>(ArrayList::new, bookCollectionDtoAdapter)
+        ));
+
+        // ВАЖНО: верхний transformer должен работать с тем же ctx!
+        IObjectTransformer<AuthorDto, AuthorEntity> transformer =
+                new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx);
+
+        // тестовые данные
+        AuthorDto authorDto = createAuthor();
+        authorDto.setBooks(createBooks());
+        authorDto.getBooks().forEach(bookDto -> bookDto.setAuthor(authorDto));
+
         AuthorEntity authorEntity = transformer.transform(authorDto);
         System.out.println(authorEntity.getId());
     }

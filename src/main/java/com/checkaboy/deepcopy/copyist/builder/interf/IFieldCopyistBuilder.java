@@ -4,6 +4,7 @@ import com.checkaboy.deepcopy.cloner.interf.IFieldCloner;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author Taras Shaptala
@@ -16,5 +17,7 @@ public interface IFieldCopyistBuilder<O, V>
     IFieldCopyistBuilder<O, V> setInserter(BiConsumer<O, V> inserter);
 
     IFieldCopyistBuilder<O, V> setFieldCloner(IFieldCloner<V> fieldCloner);
+
+    IFieldCopyistBuilder<O, V> setPredicate(Predicate<V> predicate);
 
 }

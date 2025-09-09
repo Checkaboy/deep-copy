@@ -1,16 +1,16 @@
-package com.checkaboy.deepcopy.filler;
+package com.checkaboy.deepcopy.filler.based;
 
+import com.checkaboy.deepcopy.filler.AbstractObjectFiller;
 import com.checkaboy.deepcopy.filler.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.interf.IObjectFiller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Taras Shaptala
  */
 public class ObjectFiller<S, T>
-        extends HashMap<String, IFieldFiller<S, T>>
+        extends AbstractObjectFiller<S, T>
         implements IObjectFiller<S, T> {
 
     public ObjectFiller() {
@@ -29,16 +29,8 @@ public class ObjectFiller<S, T>
     }
 
     @Override
-    public void fill(S source, T target) {
-        for (Entry<String, IFieldFiller<S, T>> entry : entrySet())
-            entry.getValue().fill(source, target);
-    }
-
-    @Override
-    public void fieldFill(String fieldName, S source, T target) {
-        IFieldFiller<S, T> fieldFiller = get(source);
-        if (fieldFiller != null)
-            fieldFiller.fill(source, target);
+    protected void fillField(String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target) {
+        fieldFiller.fill(source, target);
     }
 
 }

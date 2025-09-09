@@ -9,36 +9,38 @@ import java.util.Map;
 /**
  * @author Taras Shaptala
  */
-public class ObjectCopyist<O>
+public abstract class AbstractObjectCopyist<O>
         extends HashMap<String, IFieldCopyist<O>>
         implements IObjectCopyist<O> {
 
-    public ObjectCopyist() {
+    public AbstractObjectCopyist() {
     }
 
-    public ObjectCopyist(int initialCapacity) {
+    public AbstractObjectCopyist(int initialCapacity) {
         super(initialCapacity);
     }
 
-    public ObjectCopyist(int initialCapacity, float loadFactor) {
+    public AbstractObjectCopyist(int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor);
     }
 
-    public ObjectCopyist(Map<? extends String, ? extends IFieldCopyist<O>> m) {
+    public AbstractObjectCopyist(Map<? extends String, ? extends IFieldCopyist<O>> m) {
         super(m);
     }
 
     @Override
     public void copy(O source, O target) {
         for (Entry<String, IFieldCopyist<O>> entry : entrySet())
-            entry.getValue().copy(source, target);
+            copyField(entry.getKey(), entry.getValue(), source, target);
     }
 
     @Override
     public void fieldCopy(String fieldName, O source, O target) {
         IFieldCopyist<O> fieldCopyist = get(fieldName);
         if (fieldCopyist != null)
-            fieldCopyist.copy(source, target);
+            copyField(fieldName, fieldCopyist, source, target);
     }
+
+    protected abstract void copyField(String fieldName, IFieldCopyist<O> fieldCopyist, O source, O target);
 
 }
