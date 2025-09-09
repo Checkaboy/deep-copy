@@ -39,7 +39,7 @@ public class ObjectClonerBuilder<O>
     public IObjectCloner<O> build() {
         if (constructor == null)
             throw new NullPointerException("ObjectClonerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "ObjectCloner<" + getType().getSimpleName() + "> without constructor");
+                    "IObjectCloner<" + getType().getSimpleName() + "> without constructor");
 
         return new ObjectCloner<>(constructor, objectCopyist);
     }
