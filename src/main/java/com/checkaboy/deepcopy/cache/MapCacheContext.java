@@ -29,7 +29,6 @@ public class MapCacheContext
         delegate.clear();
     }
 
-
     public static ICacheContext identityCache() {
         return new MapCacheContext(new IdentityHashMap<>());
     }
