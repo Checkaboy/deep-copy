@@ -14,6 +14,7 @@ import com.checkaboy.deepcopy.model.book.entity.AuthorEntity;
 import com.checkaboy.deepcopy.model.book.entity.BookEntity;
 import com.checkaboy.deepcopy.model.car.Car;
 import com.checkaboy.deepcopy.model.pet.Pet;
+import com.checkaboy.deepcopy.transformer.CachedObjectTransformer;
 import com.checkaboy.deepcopy.transformer.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.ObjectTransformer;
 import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
@@ -23,6 +24,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Taras Shaptala
@@ -197,11 +199,11 @@ public class FillerTest {
         bookDtoAdapter.put("author", new FieldFiller<>(
                 BookDto::getAuthor,
                 BookEntity::setAuthor,
-                new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx) // тот же ctx
+                new CachedObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx) // тот же ctx
         ));
 
         // Transformer для BookEntity (также с тем же ctx)
-        IFieldTransformer<BookDto, BookEntity> bookTransformer = new ObjectTransformer<>(BookEntity::new, bookDtoAdapter, ctx);
+        IFieldTransformer<BookDto, BookEntity> bookTransformer = new CachedObjectTransformer<>(BookEntity::new, bookDtoAdapter, ctx);
         ICollectionFiller<List<BookDto>, BookDto, List<BookEntity>, BookEntity> bookCollectionDtoAdapter =
                 new CollectionFiller<>(bookTransformer);
 
@@ -213,7 +215,7 @@ public class FillerTest {
 
         // ВАЖНО: верхний transformer должен работать с тем же ctx!
         IObjectTransformer<AuthorDto, AuthorEntity> transformer =
-                new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx);
+                new CachedObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter, ctx);
 
         // тестовые данные
         AuthorDto authorDto = createAuthor();
