@@ -34,7 +34,7 @@ public class ListCopyTest {
 
         Assert.assertNotEquals(sourceList, cloneList);
 
-        collectionCopyist.fill(sourceList, cloneList);
+        collectionCopyist.fill(null, sourceList, cloneList);
 
         System.out.println(sourceList);
         System.out.println(cloneList);
@@ -50,7 +50,7 @@ public class ListCopyTest {
 
         ICollectionTransformer<List<String>, String, List<String>, String> collectionCloner = CollectionTransformer.primitiveCollectionTransformer(ArrayList::new);
 
-        List<String> copyList = collectionCloner.transform(sourceList);
+        List<String> copyList = collectionCloner.transform(null, sourceList);
 
         System.out.println(sourceList);
         System.out.println(copyList);
@@ -75,7 +75,7 @@ public class ListCopyTest {
                 ))
         );
 
-        List<Pet> copyList = collectionCloner.transform(sourceList);
+        List<Pet> copyList = collectionCloner.transform(null, sourceList);
 
         System.out.println("sourceList: " + sourceList);
         System.out.println("copyList:   " + copyList);

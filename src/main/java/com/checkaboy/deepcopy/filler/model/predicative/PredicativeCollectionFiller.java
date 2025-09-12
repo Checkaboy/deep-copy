@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.predicative;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.general.CollectionFiller;
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
@@ -28,9 +29,9 @@ public class PredicativeCollectionFiller<SC extends Collection<SV>, SV, TC exten
     }
 
     @Override
-    protected void fillValue(TC target, SV sourceValue) {
+    protected void fillValue(ICacheContext cacheContext, TC target, SV sourceValue) {
         if (predicate.test(sourceValue))
-            super.fillValue(target, sourceValue);
+            super.fillValue(cacheContext, target, sourceValue);
     }
 
 }

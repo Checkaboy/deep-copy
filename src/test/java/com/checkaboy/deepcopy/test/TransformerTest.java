@@ -12,8 +12,8 @@ public class TransformerTest {
 
     @Test
     public void simpleTest() {
-        IFieldTransformer<Integer, String> adapter = new FieldTransformer<>(Object::toString);
-        String string = adapter.transform(1);
+        IFieldTransformer<Integer, String> adapter = new FieldTransformer<>((cacheContext, source) -> source.toString());
+        String string = adapter.transform(null, 1);
         Assert.assertEquals(string, "1");
     }
 

@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.general;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.abstr.AbstractCollectionFiller;
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
@@ -17,7 +18,7 @@ public class CollectionFiller<SC extends Collection<SV>, SV, TC extends Collecti
     private final IFieldTransformer<SV, TV> transformer;
 
     public CollectionFiller(Supplier<TV> transformer) {
-        this(source -> transformer.get());
+        this((cacheContext, source) -> transformer.get());
     }
 
     public CollectionFiller(IFieldTransformer<SV, TV> transformer) {
@@ -25,12 +26,12 @@ public class CollectionFiller<SC extends Collection<SV>, SV, TC extends Collecti
     }
 
     @Override
-    protected void fillValue(TC target, SV sourceValue) {
-        target.add(transformer.transform(sourceValue));
+    protected void fillValue(ICacheContext cacheContext, TC target, SV sourceValue) {
+        target.add(transformer.transform(cacheContext, sourceValue));
     }
 
     public static <SC extends Collection<V>, TC extends Collection<V>, V> ICollectionFiller<SC, V, TC, V> primitiveCollectionFiller() {
-        return new CollectionFiller<>(source -> source);
+        return new CollectionFiller<>((cacheContext, source) -> source);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.transformer.model;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.interf.IMapFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IMapTransformer;
 
@@ -21,12 +22,12 @@ public class MapTransformer<SM extends Map<SK, SV>, SK, SV, TM extends Map<TK, T
     }
 
     @Override
-    public TM transform(SM source) {
+    public TM transform(ICacheContext cacheContext, SM source) {
         if (source == null)
             return null;
 
         TM newTargetMap = constructor.apply(source.size());
-        mapFiller.fill(source, newTargetMap);
+        mapFiller.fill(cacheContext, source, newTargetMap);
 
         return newTargetMap;
     }

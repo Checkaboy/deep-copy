@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.abstr;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 
 import java.util.function.Function;
@@ -16,11 +17,12 @@ public abstract class AbstractFieldFiller<SO, TO, SV>
         this.extractor = extractor;
     }
 
-    public void fill(SO source, TO target) {
+    @Override
+    public void fill(ICacheContext cacheContext, SO source, TO target) {
         SV sourceValue = extractor.apply(source);
-        fillValue(target, sourceValue);
+        fillValue(cacheContext, target, sourceValue);
     }
 
-    protected abstract void fillValue(TO target, SV sourceValue);
+    protected abstract void fillValue(ICacheContext cacheContext, TO target, SV sourceValue);
 
 }

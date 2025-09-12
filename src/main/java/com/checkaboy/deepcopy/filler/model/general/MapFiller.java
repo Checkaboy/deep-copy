@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.general;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.abstr.AbstractMapFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IMapFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
@@ -22,16 +23,16 @@ public class MapFiller<SM extends Map<SK, SV>, SK, SV, TM extends Map<TK, TV>, T
     }
 
     @Override
-    protected void fillValue(TM target, SK key, SV sourceValue) {
-        target.put(keyTransformer.transform(key), valueTransformer.transform(sourceValue));
+    protected void fillValue(ICacheContext cacheContext, TM target, SK key, SV sourceValue) {
+        target.put(keyTransformer.transform(cacheContext, key), valueTransformer.transform(cacheContext, sourceValue));
     }
 
     public static <K, SV, TV> IMapFiller<Map<K, SV>, K, SV, Map<K, TV>, K, TV> simpleMapFillerWithPrimitiveKey(IFieldTransformer<SV, TV> valueTransformer) {
-        return new MapFiller<>(source -> source, valueTransformer);
+        return new MapFiller<>((cacheContext, source) -> source, valueTransformer);
     }
 
     public static <K, V> IMapFiller<Map<K, V>, K, V, Map<K, V>, K, V> simpleMapFillerWithPrimitiveKeyAndValuePrimitive() {
-        return new MapFiller<>(source -> source, source -> source);
+        return new MapFiller<>((cacheContext, source) -> source, (cacheContext, source) -> source);
     }
 
 }

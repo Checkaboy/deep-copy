@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.abstr;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 
@@ -29,18 +30,18 @@ public abstract class AbstractObjectFiller<S, T>
     }
 
     @Override
-    public void fill(S source, T target) {
+    public void fill(ICacheContext cacheContext, S source, T target) {
         for (Entry<String, IFieldFiller<S, T>> entry : entrySet())
-            fillField(entry.getKey(), entry.getValue(), source, target);
+            fillField(cacheContext, entry.getKey(), entry.getValue(), source, target);
     }
 
     @Override
-    public void fieldFill(String fieldName, S source, T target) {
+    public void fieldFill(ICacheContext cacheContext, String fieldName, S source, T target) {
         IFieldFiller<S, T> fieldFiller = get(source);
         if (fieldFiller != null)
-            fillField(fieldName, fieldFiller, source, target);
+            fillField(cacheContext, fieldName, fieldFiller, source, target);
     }
 
-    protected abstract void fillField(String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target);
+    protected abstract void fillField(ICacheContext cacheContext, String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target);
 
 }

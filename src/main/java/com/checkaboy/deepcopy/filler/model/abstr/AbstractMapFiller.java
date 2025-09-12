@@ -1,5 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.abstr;
 
+import com.checkaboy.deepcopy.cache.ICacheContext;
 import com.checkaboy.deepcopy.filler.model.interf.IMapFiller;
 
 import java.util.Map;
@@ -11,14 +12,14 @@ public abstract class AbstractMapFiller<SM extends Map<SK, SV>, SK, SV, TM exten
         implements IMapFiller<SM, SK, SV, TM, TK, TV> {
 
     @Override
-    public void fill(SM source, TM target) {
+    public void fill(ICacheContext cacheContext, SM source, TM target) {
         if (source != null) {
             if (!target.isEmpty()) target.clear();
             if (source.isEmpty()) return;
-            source.forEach((k, v) -> fillValue(target, k, v));
+            source.forEach((k, v) -> fillValue(cacheContext, target, k, v));
         }
     }
 
-    protected abstract void fillValue(TM target, SK key, SV sourceValue);
+    protected abstract void fillValue(ICacheContext cacheContext, TM target, SK key, SV sourceValue);
 
 }

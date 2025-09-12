@@ -58,7 +58,7 @@ public class ObjectCopyTest {
         Car sourceCar = createBmvI3();
         Car newCarCopy = new Car();
 
-        carCopyist.fill(sourceCar, newCarCopy);
+        carCopyist.fill(null, sourceCar, newCarCopy);
 
         Assert.assertEquals(sourceCar.getEngine().getCountCylinder(), newCarCopy.getEngine().getCountCylinder());
         Assert.assertNotEquals(sourceCar.getEngine(), newCarCopy.getEngine());

@@ -42,7 +42,7 @@ public class FieldCopyTest {
         String value = "String data";
         SimpleTestModel sourceSimpleTestModel = new SimpleTestModel().setStringValue(value);
         SimpleTestModel targetSimpleTestModel = new SimpleTestModel();
-        stringFieldCopyist.fill(sourceSimpleTestModel, targetSimpleTestModel);
+        stringFieldCopyist.fill(null, sourceSimpleTestModel, targetSimpleTestModel);
         Assert.assertEquals(value, targetSimpleTestModel.getStringValue());
     }
 
