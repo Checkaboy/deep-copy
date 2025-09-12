@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.builder.interf;
 
-import com.checkaboy.deepcopy.filler.interf.IFieldFiller;
+import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 
 import java.util.Map;
 import java.util.function.Predicate;

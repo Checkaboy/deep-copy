@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.builder.interf;
 
-import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 
 import java.util.Collection;
 import java.util.function.Predicate;

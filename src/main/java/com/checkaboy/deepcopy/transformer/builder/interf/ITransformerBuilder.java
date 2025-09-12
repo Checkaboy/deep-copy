@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.builder.interf;
 
-import com.checkaboy.deepcopy.transformer.interf.ITransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
 
 /**
  * @author Taras Shaptala

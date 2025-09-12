@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.builder.interf;
 
-import com.checkaboy.deepcopy.filler.interf.IObjectFiller;
+import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.transformer.builder.ObjectTransformerBuilder;
 
 import java.util.function.Supplier;

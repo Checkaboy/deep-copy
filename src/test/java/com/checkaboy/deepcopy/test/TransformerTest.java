@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.transformer.FieldTransformer;
-import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
+import com.checkaboy.deepcopy.transformer.model.FieldTransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.filler.builder;
 
-import com.checkaboy.deepcopy.filler.based.FieldFiller;
+import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
 import com.checkaboy.deepcopy.filler.builder.interf.IFieldFillerBuilder;
-import com.checkaboy.deepcopy.filler.interf.IFieldFiller;
-import com.checkaboy.deepcopy.filler.predicative.PredicativeFieldFiller;
-import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
+import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
+import com.checkaboy.deepcopy.filler.model.predicative.PredicativeFieldFiller;
+import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.function.BiConsumer;

@@ -1,8 +1,8 @@
 package com.checkaboy.deepcopy.transformer.builder;
 
-import com.checkaboy.deepcopy.transformer.FieldTransformer;
+import com.checkaboy.deepcopy.transformer.model.FieldTransformer;
 import com.checkaboy.deepcopy.transformer.builder.interf.IFieldTransformerBuilder;
-import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 /**

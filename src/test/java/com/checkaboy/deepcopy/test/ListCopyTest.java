@@ -1,14 +1,14 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.cloner.CollectionCloner;
-import com.checkaboy.deepcopy.cloner.ObjectCloner;
-import com.checkaboy.deepcopy.cloner.interf.ICollectionCloner;
-import com.checkaboy.deepcopy.copyist.based.CollectionCopyist;
-import com.checkaboy.deepcopy.copyist.based.FieldCopyist;
-import com.checkaboy.deepcopy.copyist.based.ObjectCopyist;
-import com.checkaboy.deepcopy.copyist.interf.ICollectionCopyist;
+import com.checkaboy.deepcopy.filler.model.general.CollectionFiller;
+import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
+import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
+import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.model.pet.EAnimal;
 import com.checkaboy.deepcopy.model.pet.Pet;
+import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
+import com.checkaboy.deepcopy.transformer.model.ObjectTransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.ICollectionTransformer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class ListCopyTest {
         List<String> sourceList = listGenerate();
         List<String> cloneList = new ArrayList<>();
 
-        ICollectionCopyist<List<String>, String> collectionCopyist = CollectionCopyist.primitiveCollectionCopyist();
+        ICollectionFiller<List<String>, String, List<String>, String> collectionCopyist = CollectionFiller.primitiveCollectionFiller();
 
         System.out.println(sourceList);
         System.out.println(cloneList);
@@ -34,7 +34,7 @@ public class ListCopyTest {
 
         Assert.assertNotEquals(sourceList, cloneList);
 
-        collectionCopyist.copy(sourceList, cloneList);
+        collectionCopyist.fill(sourceList, cloneList);
 
         System.out.println(sourceList);
         System.out.println(cloneList);
@@ -48,9 +48,9 @@ public class ListCopyTest {
 
         List<String> sourceList = listGenerate();
 
-        ICollectionCloner<List<String>, String> collectionCloner = CollectionCloner.primitiveCollectionCloner(ArrayList::new);
+        ICollectionTransformer<List<String>, String, List<String>, String> collectionCloner = CollectionTransformer.primitiveCollectionTransformer(ArrayList::new);
 
-        List<String> copyList = collectionCloner.clone(sourceList);
+        List<String> copyList = collectionCloner.transform(sourceList);
 
         System.out.println(sourceList);
         System.out.println(copyList);
@@ -63,19 +63,19 @@ public class ListCopyTest {
     public void objectListClone() {
         List<Pet> sourceList = createFirstPetList();
 
-        CollectionCloner<List<Pet>, Pet> collectionCloner = new CollectionCloner<>(
+        CollectionTransformer<List<Pet>, Pet, List<Pet>, Pet> collectionCloner = new CollectionTransformer<>(
                 ArrayList::new,
-                new CollectionCopyist<>(new ObjectCloner<>(
+                new CollectionFiller<>(new ObjectTransformer<>(
                         Pet::new,
-                        new ObjectCopyist<>(Map.ofEntries(
-                                Map.entry("nickname", FieldCopyist.simpleFieldCopyist(Pet::getNickname, Pet::setNickname)),
-                                Map.entry("age", FieldCopyist.simpleFieldCopyist(Pet::getAge, Pet::setAge)),
-                                Map.entry("animal", FieldCopyist.simpleFieldCopyist(Pet::getAnimal, Pet::setAnimal))
+                        new ObjectFiller<>(Map.ofEntries(
+                                Map.entry("nickname", FieldFiller.simpleFieldFiller(Pet::getNickname, Pet::setNickname)),
+                                Map.entry("age", FieldFiller.simpleFieldFiller(Pet::getAge, Pet::setAge)),
+                                Map.entry("animal", FieldFiller.simpleFieldFiller(Pet::getAnimal, Pet::setAnimal))
                         ))
                 ))
         );
 
-        List<Pet> copyList = collectionCloner.clone(sourceList);
+        List<Pet> copyList = collectionCloner.transform(sourceList);
 
         System.out.println("sourceList: " + sourceList);
         System.out.println("copyList:   " + copyList);
@@ -126,6 +126,5 @@ public class ListCopyTest {
 
         return list;
     }
-
 
 }

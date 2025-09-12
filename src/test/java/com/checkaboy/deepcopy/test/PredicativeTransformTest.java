@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.cloner.ObjectCloner;
-import com.checkaboy.deepcopy.cloner.interf.IObjectCloner;
-import com.checkaboy.deepcopy.copyist.based.ObjectCopyist;
-import com.checkaboy.deepcopy.copyist.interf.IObjectCopyist;
+import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
+import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.model.car.Car;
+import com.checkaboy.deepcopy.transformer.model.ObjectTransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.IObjectTransformer;
 import org.junit.Test;
 
 /**
@@ -14,10 +14,9 @@ public class PredicativeTransformTest {
 
     @Test
     public void simplePredicativeTransformTest() {
-        IObjectCopyist<Car> objectCopyist = new ObjectCopyist<>();
+        IObjectFiller<Car, Car> objectCopyist = new ObjectFiller<>();
 
-        IObjectCloner<Car> cloner = new ObjectCloner<>(Car::new, objectCopyist);
-
+        IObjectTransformer<Car, Car> cloner = new ObjectTransformer<>(Car::new, objectCopyist);
     }
 
 }

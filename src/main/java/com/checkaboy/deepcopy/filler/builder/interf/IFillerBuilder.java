@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.builder.interf;
 
-import com.checkaboy.deepcopy.filler.interf.IFiller;
+import com.checkaboy.deepcopy.filler.model.interf.IFiller;
 
 /**
  * @author Taras Shaptala

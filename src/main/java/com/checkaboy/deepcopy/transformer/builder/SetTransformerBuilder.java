@@ -1,9 +1,9 @@
 package com.checkaboy.deepcopy.transformer.builder;
 
-import com.checkaboy.deepcopy.filler.interf.ICollectionFiller;
-import com.checkaboy.deepcopy.transformer.CollectionTransformer;
+import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
+import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.builder.interf.ICollectionTransformerBuilder;
-import com.checkaboy.deepcopy.transformer.interf.ITransformer;
+import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.HashSet;

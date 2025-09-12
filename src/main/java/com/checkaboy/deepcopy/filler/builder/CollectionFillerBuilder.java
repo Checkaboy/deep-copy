@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.filler.builder;
 
-import com.checkaboy.deepcopy.filler.based.CollectionFiller;
+import com.checkaboy.deepcopy.filler.model.general.CollectionFiller;
 import com.checkaboy.deepcopy.filler.builder.interf.ICollectionFillerBuilder;
-import com.checkaboy.deepcopy.filler.interf.ICollectionFiller;
-import com.checkaboy.deepcopy.filler.predicative.PredicativeCollectionFiller;
-import com.checkaboy.deepcopy.transformer.interf.IFieldTransformer;
+import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
+import com.checkaboy.deepcopy.filler.model.predicative.PredicativeCollectionFiller;
+import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.Collection;

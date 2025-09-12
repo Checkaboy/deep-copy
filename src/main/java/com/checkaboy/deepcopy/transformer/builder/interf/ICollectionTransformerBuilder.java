@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.builder.interf;
 
-import com.checkaboy.deepcopy.filler.interf.ICollectionFiller;
+import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 
 import java.util.Collection;
 import java.util.function.Function;
