@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.model.interf;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 
 /**
  * @author Taras Shaptala
@@ -8,6 +8,6 @@ import com.checkaboy.deepcopy.cache.ICacheContext;
 @FunctionalInterface
 public interface ITransformer<S, T> {
 
-    T transform(ICacheContext cacheContext, S source);
+    T transform(ICache cache, S source);
 
 }

@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.general;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 import com.checkaboy.deepcopy.filler.model.abstr.AbstractFieldFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.transformer.model.FieldTransformer;
@@ -26,8 +26,8 @@ public class FieldFiller<SO, TO, SV, TV>
     }
 
     @Override
-    protected void fillValue(ICacheContext cacheContext, TO target, SV sourceValue) {
-        TV valueTarget = transformer.transform(cacheContext, sourceValue);
+    protected void fillValue(ICache cache, TO target, SV sourceValue) {
+        TV valueTarget = transformer.transform(cache, sourceValue);
         inserter.accept(target, valueTarget);
     }
 

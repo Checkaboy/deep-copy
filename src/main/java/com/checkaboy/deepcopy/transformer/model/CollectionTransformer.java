@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.model;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 import com.checkaboy.deepcopy.filler.model.general.CollectionFiller;
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.ICollectionTransformer;
@@ -23,12 +23,12 @@ public class CollectionTransformer<SC extends Collection<SV>, SV, TC extends Col
     }
 
     @Override
-    public TC transform(ICacheContext cacheContext, SC source) {
+    public TC transform(ICache cache, SC source) {
         if (source == null)
             return null;
 
         TC targetCollection = constructor.apply(source.size());
-        collectionFiller.fill(cacheContext, source, targetCollection);
+        collectionFiller.fill(cache, source, targetCollection);
 
         return targetCollection;
     }

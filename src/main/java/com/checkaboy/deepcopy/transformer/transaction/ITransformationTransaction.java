@@ -3,7 +3,8 @@ package com.checkaboy.deepcopy.transformer.transaction;
 /**
  * @author Taras Shaptala
  */
-public interface ITransformTransaction<S, T> {
+@FunctionalInterface
+public interface ITransformationTransaction<S, T> {
 
     T transform(S source);
 

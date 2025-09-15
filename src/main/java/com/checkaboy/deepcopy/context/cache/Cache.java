@@ -15,7 +15,7 @@ public class Cache
     private final ICacheContextFactory cacheContextFactory;
 
     public Cache() {
-        cacheContextFactory = CacheContest::new;
+        cacheContextFactory = CacheContext::new;
     }
 
     public Cache(ICacheContextFactory cacheContextFactory) {
@@ -25,7 +25,12 @@ public class Cache
     @Override
     @SuppressWarnings("unchecked")
     public <S, T> ICacheContext<S, T> get(Object object) {
-        return (ICacheContext<S, T>) cacheContextMap.getOrDefault(object, cacheContextFactory.create());
+        ICacheContext<S, T> cacheContext = (ICacheContext<S, T>) cacheContextMap.get(object);
+        if (cacheContext == null) {
+            cacheContext = cacheContextFactory.create();
+            cacheContextMap.put(object, cacheContext);
+        }
+        return cacheContext;
     }
 
 }

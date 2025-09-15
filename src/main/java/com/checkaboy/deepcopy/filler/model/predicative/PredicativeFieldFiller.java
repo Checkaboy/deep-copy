@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.predicative;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
@@ -24,9 +24,9 @@ public class PredicativeFieldFiller<SO, TO, SV, TV>
     }
 
     @Override
-    protected void fillValue(ICacheContext cacheContext, TO target, SV sourceValue) {
+    protected void fillValue(ICache cache, TO target, SV sourceValue) {
         if (predicate.test(sourceValue))
-            super.fillValue(cacheContext, target, sourceValue);
+            super.fillValue(cache, target, sourceValue);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.predicative;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 import com.checkaboy.deepcopy.filler.model.general.MapFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IMapFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
@@ -25,9 +25,9 @@ public class PredicativeMapFiller<SM extends Map<SK, SV>, SK, SV, TM extends Map
     }
 
     @Override
-    protected void fillValue(ICacheContext cacheContext, TM target, SK key, SV value) {
+    protected void fillValue(ICache cache, TM target, SK key, SV value) {
         if (keyPredicate.test(key) && valuePredicate.test(value))
-            super.fillValue(cacheContext, target, key, value);
+            super.fillValue(cache, target, key, value);
     }
 
 }

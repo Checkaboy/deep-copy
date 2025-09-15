@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.general;
 
-import com.checkaboy.deepcopy.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICache;
 import com.checkaboy.deepcopy.filler.model.abstr.AbstractObjectFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
@@ -30,8 +30,8 @@ public class ObjectFiller<S, T>
     }
 
     @Override
-    protected void fillField(ICacheContext cacheContext, String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target) {
-        fieldFiller.fill(cacheContext, source, target);
+    protected void fillField(ICache cache, String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target) {
+        fieldFiller.fill(cache, source, target);
     }
 
 }

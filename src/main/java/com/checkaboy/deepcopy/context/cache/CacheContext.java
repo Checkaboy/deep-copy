@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @author Taras Shaptala
  */
-public class CacheContest<S, T>
+public class CacheContext<S, T>
         implements ICacheContext<S, T> {
 
     private final Map<S, T> map = new IdentityHashMap<>();
