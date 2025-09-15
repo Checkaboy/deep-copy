@@ -11,14 +11,23 @@ import java.util.Map;
 public class Cache
         implements ICache {
 
-    private final Map<Object, ICacheContext<?, ?>> cacheContextMap = new IdentityHashMap<>();
+    private final Map<Object, ICacheContext<?, ?>> cacheContextMap;
     private final ICacheContextFactory cacheContextFactory;
 
     public Cache() {
-        cacheContextFactory = CacheContext::new;
+        this(new IdentityHashMap<>(), CacheContext::new);
     }
 
     public Cache(ICacheContextFactory cacheContextFactory) {
+        this(new IdentityHashMap<>(), cacheContextFactory);
+    }
+
+    public Cache(Map<Object, ICacheContext<?, ?>> cacheContextMap) {
+        this(cacheContextMap, CacheContext::new);
+    }
+
+    public Cache(Map<Object, ICacheContext<?, ?>> cacheContextMap, ICacheContextFactory cacheContextFactory) {
+        this.cacheContextMap = cacheContextMap;
         this.cacheContextFactory = cacheContextFactory;
     }
 
