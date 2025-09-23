@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.filler.transaction;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
-import com.checkaboy.deepcopy.context.factory.ICacheFactory;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
+import com.checkaboy.deepcopy.context.factory.ICopyistCacheFactory;
 import com.checkaboy.deepcopy.filler.model.interf.IFiller;
 
 /**
@@ -11,15 +11,15 @@ public class FillingTransaction<S, T>
         implements IFillingTransaction<S, T> {
 
     private final IFiller<S, T> filler;
-    private final ICacheFactory cacheFactory;
+    private final ICopyistCacheFactory cacheFactory;
 
-    public FillingTransaction(IFiller<S, T> filler, ICacheFactory cacheFactory) {
+    public FillingTransaction(IFiller<S, T> filler, ICopyistCacheFactory cacheFactory) {
         this.filler = filler;
         this.cacheFactory = cacheFactory;
     }
 
     public void fill(S source, T target) {
-        ICache cache = cacheFactory.create();
+        ICopyistCache cache = cacheFactory.create();
         filler.fill(cache, source, target);
     }
 

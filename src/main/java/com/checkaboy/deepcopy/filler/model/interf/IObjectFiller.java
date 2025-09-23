@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.interf;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
 
 import java.util.Map;
 
@@ -10,6 +10,6 @@ import java.util.Map;
 public interface IObjectFiller<S, T>
         extends IFieldFiller<S, T>, Map<String, IFieldFiller<S, T>> {
 
-    void fieldFill(ICache cache, String fieldName, S source, T target);
+    void fieldFill(ICopyistCache cache, String fieldName, S source, T target);
 
 }

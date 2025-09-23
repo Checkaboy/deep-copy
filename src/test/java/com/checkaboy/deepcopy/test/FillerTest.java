@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.test;
 
-import com.checkaboy.deepcopy.context.cache.Cache;
+import com.checkaboy.deepcopy.context.cache.CopyistCache;
 import com.checkaboy.deepcopy.filler.model.general.CollectionFiller;
 import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
 import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
@@ -175,7 +175,7 @@ public class FillerTest {
         authorDto.getBooks().forEach(bookDto -> bookDto.setAuthor(authorDto));
 
         IObjectTransformer<AuthorDto, AuthorEntity> transformer = new ObjectTransformer<>(AuthorEntity::new, authorObjectDtoAdapter);
-        AuthorEntity authorEntity = transformer.transform(new Cache(), authorDto);
+        AuthorEntity authorEntity = transformer.transform(new CopyistCache(), authorDto);
         System.out.println(authorEntity.getId());
     }
 
@@ -212,7 +212,7 @@ public class FillerTest {
         authorDto.setBooks(createBooks());
         authorDto.getBooks().forEach(bookDto -> bookDto.setAuthor(authorDto));
 
-        AuthorEntity authorEntity = transformer.transform(new Cache(), authorDto);
+        AuthorEntity authorEntity = transformer.transform(new CopyistCache(), authorDto);
         System.out.println(authorEntity.getId());
     }
 

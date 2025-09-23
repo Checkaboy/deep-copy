@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.abstr;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 
 import java.util.Collection;
@@ -12,7 +12,7 @@ public abstract class AbstractCollectionFiller<SC extends Collection<SV>, SV, TC
         implements ICollectionFiller<SC, SV, TC, TV> {
 
     @Override
-    public void fill(ICache cache, SC source, TC target) {
+    public void fill(ICopyistCache cache, SC source, TC target) {
         if (source != null) {
             if (!target.isEmpty()) target.clear();
             if (source.isEmpty()) return;
@@ -20,6 +20,6 @@ public abstract class AbstractCollectionFiller<SC extends Collection<SV>, SV, TC
         }
     }
 
-    protected abstract void fillValue(ICache cache, TC target, SV sourceValue);
+    protected abstract void fillValue(ICopyistCache cache, TC target, SV sourceValue);
 
 }

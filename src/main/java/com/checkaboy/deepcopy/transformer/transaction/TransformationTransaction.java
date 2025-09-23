@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.transformer.transaction;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
-import com.checkaboy.deepcopy.context.factory.ICacheFactory;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
+import com.checkaboy.deepcopy.context.factory.ICopyistCacheFactory;
 import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
 
 /**
@@ -11,16 +11,16 @@ public class TransformationTransaction<S, T>
         implements ITransformationTransaction<S, T> {
 
     private final ITransformer<S, T> transformer;
-    private final ICacheFactory cacheFactory;
+    private final ICopyistCacheFactory cacheFactory;
 
-    public TransformationTransaction(ITransformer<S, T> transformer, ICacheFactory cacheFactory) {
+    public TransformationTransaction(ITransformer<S, T> transformer, ICopyistCacheFactory cacheFactory) {
         this.transformer = transformer;
         this.cacheFactory = cacheFactory;
     }
 
     @Override
     public T transform(S source) {
-        ICache cache = cacheFactory.create();
+        ICopyistCache cache = cacheFactory.create();
         return transformer.transform(cache, source);
     }
 

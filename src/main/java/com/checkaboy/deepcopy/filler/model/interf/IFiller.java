@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.filler.model.interf;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
 
 /**
  * @author Taras Shaptala
@@ -8,6 +8,6 @@ import com.checkaboy.deepcopy.context.cache.ICache;
 @FunctionalInterface
 public interface IFiller<S, T> {
 
-    void fill(ICache cache, S source, T target);
+    void fill(ICopyistCache cache, S source, T target);
 
 }

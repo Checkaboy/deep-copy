@@ -1,6 +1,6 @@
 package com.checkaboy.deepcopy.transformer.model;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
 
 /**
@@ -16,7 +16,7 @@ public class FieldTransformer<S, T>
     }
 
     @Override
-    public T transform(ICache cache, S source) {
+    public T transform(ICopyistCache cache, S source) {
         if (source == null)
             return null;
 

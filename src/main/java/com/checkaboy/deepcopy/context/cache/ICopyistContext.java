@@ -3,7 +3,7 @@ package com.checkaboy.deepcopy.context.cache;
 /**
  * @author Taras Shaptala
  */
-public interface ICacheContext<S, T> {
+public interface ICopyistContext<S, T> {
 
     T get(S source);
 

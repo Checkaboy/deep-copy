@@ -6,8 +6,8 @@ import java.util.Map;
 /**
  * @author Taras Shaptala
  */
-public class CacheContext<S, T>
-        implements ICacheContext<S, T> {
+public class CopyistContext<S, T>
+        implements ICopyistContext<S, T> {
 
     private final Map<S, T> map = new IdentityHashMap<>();
 

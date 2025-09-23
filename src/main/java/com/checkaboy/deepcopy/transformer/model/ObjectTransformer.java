@@ -1,7 +1,7 @@
 package com.checkaboy.deepcopy.transformer.model;
 
-import com.checkaboy.deepcopy.context.cache.ICache;
-import com.checkaboy.deepcopy.context.cache.ICacheContext;
+import com.checkaboy.deepcopy.context.cache.ICopyistCache;
+import com.checkaboy.deepcopy.context.cache.ICopyistContext;
 import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IObjectTransformer;
 
@@ -22,7 +22,7 @@ public class ObjectTransformer<S, T>
     }
 
     @Override
-    public T transform(ICache cache, S source) {
+    public T transform(ICopyistCache cache, S source) {
         if (source == null)
             return null;
 
@@ -32,7 +32,7 @@ public class ObjectTransformer<S, T>
             return target;
         }
 
-        ICacheContext<S, T> cacheContext = cache.get(this);
+        ICopyistContext<S, T> cacheContext = cache.get(this);
         T cached = cacheContext.get(source);
         if (cached != null) return cached;
 
