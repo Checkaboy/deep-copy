@@ -6,7 +6,6 @@ import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
 import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
-import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.model.book.dto.AuthorDto;
 import com.checkaboy.deepcopy.model.book.dto.BookDto;
 import com.checkaboy.deepcopy.model.book.entity.AuthorEntity;
@@ -56,7 +55,7 @@ public class FillerTest {
 
     @Test
     public void objectAdapterTest() {
-        IObjectFiller<Car, Pet> adapter = new ObjectFiller<>();
+        ObjectFiller<Car, Pet> adapter = new ObjectFiller<>();
 
         adapter.put("color", FieldFiller.simpleFieldFiller(Car::getColor, Pet::setNickname));
 
@@ -72,12 +71,12 @@ public class FillerTest {
 
     @Test
     public void objectAdapterWithSubClassTest() {
-        IObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
+        ObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
 
         bookDtoAdapter.put("id", FieldFiller.simpleFieldFiller(BookDto::getId, BookEntity::setId));
         bookDtoAdapter.put("name", FieldFiller.simpleFieldFiller(BookDto::getName, BookEntity::setName));
         {
-            IObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
+            ObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
 
             authorObjectDtoAdapter.put("id", FieldFiller.simpleFieldFiller(AuthorDto::getId, AuthorEntity::setId));
             authorObjectDtoAdapter.put("firstName", FieldFiller.simpleFieldFiller(AuthorDto::getFirstName, AuthorEntity::setFirstName));
@@ -103,14 +102,14 @@ public class FillerTest {
 
     @Test
     public void collectionAdapterTest() {
-        IObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
+        ObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
 
         authorObjectDtoAdapter.put("id", FieldFiller.simpleFieldFiller(AuthorDto::getId, AuthorEntity::setId));
         authorObjectDtoAdapter.put("firstName", FieldFiller.simpleFieldFiller(AuthorDto::getFirstName, AuthorEntity::setFirstName));
         authorObjectDtoAdapter.put("lastName", FieldFiller.simpleFieldFiller(AuthorDto::getLastName, AuthorEntity::setLastName));
 
         {
-            IObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
+            ObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
 
             bookDtoAdapter.put("id", FieldFiller.simpleFieldFiller(BookDto::getId, BookEntity::setId));
             bookDtoAdapter.put("name", FieldFiller.simpleFieldFiller(BookDto::getName, BookEntity::setName));
@@ -140,14 +139,14 @@ public class FillerTest {
 
     @Test
     public void collectionAdapterTest2() {
-        IObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
+        ObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
 
         authorObjectDtoAdapter.put("id", FieldFiller.simpleFieldFiller(AuthorDto::getId, AuthorEntity::setId));
         authorObjectDtoAdapter.put("firstName", FieldFiller.simpleFieldFiller(AuthorDto::getFirstName, AuthorEntity::setFirstName));
         authorObjectDtoAdapter.put("lastName", FieldFiller.simpleFieldFiller(AuthorDto::getLastName, AuthorEntity::setLastName));
 
         {
-            IObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
+            ObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
 
             bookDtoAdapter.put("id", FieldFiller.simpleFieldFiller(BookDto::getId, BookEntity::setId));
             bookDtoAdapter.put("name", FieldFiller.simpleFieldFiller(BookDto::getName, BookEntity::setName));
@@ -181,12 +180,12 @@ public class FillerTest {
 
     @Test
     public void collectionAdapterTest3() {
-        IObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
+        ObjectFiller<AuthorDto, AuthorEntity> authorObjectDtoAdapter = new ObjectFiller<>();
         authorObjectDtoAdapter.put("id", FieldFiller.simpleFieldFiller(AuthorDto::getId, AuthorEntity::setId));
         authorObjectDtoAdapter.put("firstName", FieldFiller.simpleFieldFiller(AuthorDto::getFirstName, AuthorEntity::setFirstName));
         authorObjectDtoAdapter.put("lastName", FieldFiller.simpleFieldFiller(AuthorDto::getLastName, AuthorEntity::setLastName));
 
-        IObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
+        ObjectFiller<BookDto, BookEntity> bookDtoAdapter = new ObjectFiller<>();
         bookDtoAdapter.put("id", FieldFiller.simpleFieldFiller(BookDto::getId, BookEntity::setId));
         bookDtoAdapter.put("name", FieldFiller.simpleFieldFiller(BookDto::getName, BookEntity::setName));
 

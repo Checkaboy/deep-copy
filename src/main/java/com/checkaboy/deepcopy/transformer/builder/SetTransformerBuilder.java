@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.transformer.builder;
 
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
-import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.builder.interf.ICollectionTransformerBuilder;
+import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,14 +14,15 @@ import java.util.function.Function;
  * @author Taras Shaptala
  */
 public class SetTransformerBuilder<SV, TV>
-        extends AbstractTypifiedContainer<TV>
+        extends AbstractBiTypifiedContainer<SV, TV>
         implements ICollectionTransformerBuilder<Set<SV>, SV, Set<TV>, TV> {
 
     private Function<Integer, Set<TV>> constructor = HashSet::new;
-    private ICollectionFiller<Set<SV>, SV, Set<TV>, TV> collectionFiller;
+    private ICollectionFiller<Set<SV>, SV, Set<TV>, TV> collectionFiller = (cache, source, target) -> {
+    };
 
-    protected SetTransformerBuilder(Class<TV> type) {
-        super(type);
+    protected SetTransformerBuilder(Class<SV> sourceType, Class<TV> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
@@ -38,10 +39,6 @@ public class SetTransformerBuilder<SV, TV>
 
     @Override
     public ITransformer<Set<SV>, Set<TV>> build() {
-        if (collectionFiller == null)
-            throw new NullPointerException("SetTransformerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "ITransformer<" + getType().getSimpleName() + "> without collectionFiller");
-
         return new CollectionTransformer<>(constructor, collectionFiller);
     }
 

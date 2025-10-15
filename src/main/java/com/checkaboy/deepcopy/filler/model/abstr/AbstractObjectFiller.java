@@ -35,13 +35,6 @@ public abstract class AbstractObjectFiller<S, T>
             fillField(cache, entry.getKey(), entry.getValue(), source, target);
     }
 
-    @Override
-    public void fieldFill(ICopyistCache cache, String fieldName, S source, T target) {
-        IFieldFiller<S, T> fieldFiller = get(source);
-        if (fieldFiller != null)
-            fillField(cache, fieldName, fieldFiller, source, target);
-    }
-
     protected abstract void fillField(ICopyistCache cache, String fieldName, IFieldFiller<S, T> fieldFiller, S source, T target);
 
 }

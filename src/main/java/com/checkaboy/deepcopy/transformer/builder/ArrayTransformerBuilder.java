@@ -4,7 +4,7 @@ import com.checkaboy.deepcopy.filler.model.interf.IArrayFiller;
 import com.checkaboy.deepcopy.transformer.builder.interf.IArrayTransformerBuilder;
 import com.checkaboy.deepcopy.transformer.model.ArrayTransformer;
 import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 import java.util.function.Function;
 
@@ -12,14 +12,15 @@ import java.util.function.Function;
  * @author Taras Shaptala
  */
 public class ArrayTransformerBuilder<S, T>
-        extends AbstractTypifiedContainer<T>
+        extends AbstractBiTypifiedContainer<S, T>
         implements IArrayTransformerBuilder<S, T> {
 
-    private Function<Integer, T[]> constructor;
-    private IArrayFiller<S, T> arrayFiller;
+    private Function<Integer, T[]> constructor = integer -> null;
+    private IArrayFiller<S, T> arrayFiller = (cache, source, target) -> {
+    };
 
-    protected ArrayTransformerBuilder(Class<T> type) {
-        super(type);
+    protected ArrayTransformerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
@@ -36,14 +37,6 @@ public class ArrayTransformerBuilder<S, T>
 
     @Override
     public ITransformer<S[], T[]> build() {
-        if (constructor == null)
-            throw new NullPointerException("ArrayTransformerBuilder<" + getType().getSimpleName() + "[]> can`t create " +
-                    "ITransformer<" + getType().getSimpleName() + "[]> without constructor");
-
-        if (arrayFiller == null)
-            throw new NullPointerException("ArrayTransformerBuilder<" + getType().getSimpleName() + "[]> can`t create " +
-                    "ITransformer<" + getType().getSimpleName() + "[]> without arrayFiller");
-
         return new ArrayTransformer<>(constructor, arrayFiller);
     }
 

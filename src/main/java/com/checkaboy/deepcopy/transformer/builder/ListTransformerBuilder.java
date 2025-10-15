@@ -1,10 +1,10 @@
 package com.checkaboy.deepcopy.transformer.builder;
 
 import com.checkaboy.deepcopy.filler.model.interf.ICollectionFiller;
-import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.builder.interf.ICollectionTransformerBuilder;
+import com.checkaboy.deepcopy.transformer.model.CollectionTransformer;
 import com.checkaboy.deepcopy.transformer.model.interf.ITransformer;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,15 @@ import java.util.function.Function;
  * @author Taras Shaptala
  */
 public class ListTransformerBuilder<SV, TV>
-        extends AbstractTypifiedContainer<TV>
+        extends AbstractBiTypifiedContainer<SV, TV>
         implements ICollectionTransformerBuilder<List<SV>, SV, List<TV>, TV> {
 
     private Function<Integer, List<TV>> constructor = ArrayList::new;
-    private ICollectionFiller<List<SV>, SV, List<TV>, TV> collectionFiller;
+    private ICollectionFiller<List<SV>, SV, List<TV>, TV> collectionFiller = (cache, source, target) -> {
+    };
 
-    protected ListTransformerBuilder(Class<TV> type) {
-        super(type);
+    protected ListTransformerBuilder(Class<SV> sourceType, Class<TV> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
@@ -38,10 +39,6 @@ public class ListTransformerBuilder<SV, TV>
 
     @Override
     public ITransformer<List<SV>, List<TV>> build() {
-        if (collectionFiller == null)
-            throw new NullPointerException("ListTransformerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "ITransformer<" + getType().getSimpleName() + "> without collectionFiller");
-
         return new CollectionTransformer<>(constructor, collectionFiller);
     }
 

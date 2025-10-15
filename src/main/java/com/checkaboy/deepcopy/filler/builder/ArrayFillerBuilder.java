@@ -5,7 +5,7 @@ import com.checkaboy.deepcopy.filler.model.general.ArrayFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IArrayFiller;
 import com.checkaboy.deepcopy.filler.model.predicative.PredicativeArrayFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 import java.util.function.Predicate;
 
@@ -13,14 +13,14 @@ import java.util.function.Predicate;
  * @author Taras Shaptala
  */
 public class ArrayFillerBuilder<S, T>
-        extends AbstractTypifiedContainer<T>
+        extends AbstractBiTypifiedContainer<S, T>
         implements IArrayFillerBuilder<S, T> {
 
-    private IFieldTransformer<S, T> transformer;
+    private IFieldTransformer<S, T> transformer = (cache, source) -> null;
     private Predicate<S> predicate;
 
-    protected ArrayFillerBuilder(Class<T> type) {
-        super(type);
+    protected ArrayFillerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
@@ -37,10 +37,6 @@ public class ArrayFillerBuilder<S, T>
 
     @Override
     public IArrayFiller<S, T> build() {
-        if (transformer == null)
-            throw new NullPointerException("ArrayFillerBuilder<" + getType().getSimpleName() + "[]> can`t create " +
-                    "IArrayFiller<" + getType().getSimpleName() + "[]> without transformer");
-
         if (predicate == null) return new ArrayFiller<>(transformer);
         else return new PredicativeArrayFiller<>(transformer, predicate);
     }

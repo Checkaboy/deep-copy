@@ -1,11 +1,11 @@
 package com.checkaboy.deepcopy.filler.builder;
 
-import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
 import com.checkaboy.deepcopy.filler.builder.interf.IObjectFillerBuilder;
+import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.filler.model.predicative.PredicativeObjectFiller;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +15,14 @@ import java.util.function.Predicate;
  * @author Taras Shaptala
  */
 public class ObjectFillerBuilder<S, T>
-        extends AbstractTypifiedContainer<T>
+        extends AbstractBiTypifiedContainer<S, T>
         implements IObjectFillerBuilder<S, T> {
 
     private Map<String, IFieldFiller<S, T>> fieldCopyistMap = new HashMap<>();
     private Predicate<String> predicate;
 
-    protected ObjectFillerBuilder(Class<T> type) {
-        super(type);
+    protected ObjectFillerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override

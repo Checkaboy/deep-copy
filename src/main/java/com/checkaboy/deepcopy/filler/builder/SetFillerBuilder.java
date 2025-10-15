@@ -12,8 +12,8 @@ import java.util.function.Predicate;
 public class SetFillerBuilder<S, T>
         extends CollectionFillerBuilder<Set<S>, S, Set<T>, T> {
 
-    public SetFillerBuilder(Class<T> type) {
-        super(type);
+    public SetFillerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.checkaboy.deepcopy.test;
 import com.checkaboy.deepcopy.filler.model.general.FieldFiller;
 import com.checkaboy.deepcopy.filler.model.general.ObjectFiller;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
-import com.checkaboy.deepcopy.filler.model.interf.IObjectFiller;
 import com.checkaboy.deepcopy.model.car.Car;
 import com.checkaboy.deepcopy.model.car.ETransmissionType;
 import com.checkaboy.deepcopy.model.car.Engine;
@@ -19,7 +18,7 @@ public class ObjectCopyTest {
 
     @Test
     public void carCopyTest() {
-        IObjectFiller<Car, Car> carCopyist = new ObjectFiller<>();
+        ObjectFiller<Car, Car> carCopyist = new ObjectFiller<>();
 
         carCopyist.put("carBrand", FieldFiller.simpleFieldFiller(Car::getCarBrand, Car::setCarBrand));
         carCopyist.put("model", FieldFiller.simpleFieldFiller(Car::getModel, Car::setModel));
@@ -27,7 +26,7 @@ public class ObjectCopyTest {
         carCopyist.put("doorCount", FieldFiller.simpleFieldFiller(Car::getDoorCount, Car::setDoorCount));
 
         {
-            IObjectFiller<Engine, Engine> engineCopyist = new ObjectFiller<>();
+            ObjectFiller<Engine, Engine> engineCopyist = new ObjectFiller<>();
             engineCopyist.put("horsePower", FieldFiller.simpleFieldFiller(Engine::getHorsePower, Engine::setCountCylinder));
             engineCopyist.put("volume", FieldFiller.simpleFieldFiller(Engine::getVolume, Engine::setVolume));
             engineCopyist.put("countCylinder", FieldFiller.simpleFieldFiller(Engine::getCountCylinder, Engine::setCountCylinder));
@@ -42,7 +41,7 @@ public class ObjectCopyTest {
         }
 
         {
-            IObjectFiller<Transmission, Transmission> objectCopyist = new ObjectFiller<>();
+            ObjectFiller<Transmission, Transmission> objectCopyist = new ObjectFiller<>();
             objectCopyist.put("countSteps", FieldFiller.simpleFieldFiller(Transmission::getCountSteps, Transmission::setCountSteps));
             objectCopyist.put("transmissionType", FieldFiller.simpleFieldFiller(Transmission::getTransmissionType, Transmission::setTransmissionType));
 

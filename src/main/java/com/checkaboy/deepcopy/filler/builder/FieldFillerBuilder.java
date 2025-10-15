@@ -5,6 +5,7 @@ import com.checkaboy.deepcopy.filler.builder.interf.IFieldFillerBuilder;
 import com.checkaboy.deepcopy.filler.model.interf.IFieldFiller;
 import com.checkaboy.deepcopy.filler.model.predicative.PredicativeFieldFiller;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
 
 import java.util.function.BiConsumer;
@@ -15,16 +16,16 @@ import java.util.function.Predicate;
  * @author Taras Shaptala
  */
 public class FieldFillerBuilder<SO, TO, SV, TV>
-        extends AbstractTypifiedContainer<TV>
+        extends AbstractBiTypifiedContainer<SV, TV>
         implements IFieldFillerBuilder<SO, TO, SV, TV> {
 
-    private Function<SO, SV> extractor;
-    private BiConsumer<TO, TV> inserter;
-    private IFieldTransformer<SV, TV> transformer;
+    private Function<SO, SV> extractor = so -> null;
+    private BiConsumer<TO, TV> inserter = (to, tv) -> {};
+    private IFieldTransformer<SV, TV> transformer = (cache, source) -> null;
     private Predicate<SV> predicate;
 
-    protected FieldFillerBuilder(Class<TV> type) {
-        super(type);
+    protected FieldFillerBuilder(Class<SV> sourceType, Class<TV> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
@@ -53,18 +54,6 @@ public class FieldFillerBuilder<SO, TO, SV, TV>
 
     @Override
     public IFieldFiller<SO, TO> build() {
-        if (extractor == null)
-            throw new NullPointerException("FieldFillerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "IFieldFiller<" + getType().getSimpleName() + "> without extractor");
-
-        if (inserter == null)
-            throw new NullPointerException("FieldFillerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "IFieldFiller<" + getType().getSimpleName() + "> without inserter");
-
-        if (transformer == null)
-            throw new NullPointerException("FieldFillerBuilder<" + getType().getSimpleName() + "> can`t create " +
-                    "IFieldFiller<" + getType().getSimpleName() + "> without transformer");
-
         if (predicate == null) return new FieldFiller<>(extractor, inserter, transformer);
         else return new PredicativeFieldFiller<>(extractor, inserter, transformer, predicate);
     }

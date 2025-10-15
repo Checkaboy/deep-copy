@@ -1,21 +1,21 @@
 package com.checkaboy.deepcopy.transformer.builder;
 
-import com.checkaboy.deepcopy.transformer.model.FieldTransformer;
 import com.checkaboy.deepcopy.transformer.builder.interf.IFieldTransformerBuilder;
+import com.checkaboy.deepcopy.transformer.model.FieldTransformer;
 import com.checkaboy.deepcopy.transformer.model.interf.IFieldTransformer;
-import com.checkaboy.objectutils.container.AbstractTypifiedContainer;
+import com.checkaboy.objectutils.container.AbstractBiTypifiedContainer;
 
 /**
  * @author Taras Shaptala
  */
 public class FieldTransformerBuilder<S, T>
-        extends AbstractTypifiedContainer<T>
+        extends AbstractBiTypifiedContainer<S, T>
         implements IFieldTransformerBuilder<S, T> {
 
     private IFieldTransformer<S, T> transformer;
 
-    protected FieldTransformerBuilder(Class<T> type) {
-        super(type);
+    protected FieldTransformerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override

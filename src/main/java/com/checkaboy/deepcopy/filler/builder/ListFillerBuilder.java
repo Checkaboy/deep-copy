@@ -12,8 +12,8 @@ import java.util.function.Predicate;
 public class ListFillerBuilder<S, T>
         extends CollectionFillerBuilder<List<S>, S, List<T>, T> {
 
-    protected ListFillerBuilder(Class<T> type) {
-        super(type);
+    protected ListFillerBuilder(Class<S> sourceType, Class<T> targetType) {
+        super(sourceType, targetType);
     }
 
     @Override
